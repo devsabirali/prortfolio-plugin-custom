@@ -11,6 +11,7 @@ class ELPT_Admin_Page {
 	// Construct - Hook everything
 	public function __construct() {
 	    add_action('admin_menu', array( __CLASS__, 'elpt_setup_menu'));
+	    add_action( 'admin_init', array( 'Powerfolio_Styles', 'register_settings' ) );
 	    //add_action('admin_enqueue_scripts', array( __CLASS__, 'wpmld_css_and_js') );
 	 }
 	
@@ -44,16 +45,64 @@ class ELPT_Admin_Page {
 		// Color Section
 		$settings_section = 'elpt_main';
 		$page = 'elpt';
-		add_settings_section( $settings_section, __( 'Settings', 'portfolio-elementor' ), '', $page );
-		add_settings_field( 'elpt_color', __('Color Scheme', 'portfolio-elementor'), array( __CLASS__, 'elpt_color_callback'), $page, 'elpt_main' );
+		add_settings_section( $settings_section, __( 'Mockups listing style', 'portfolio-elementor' ), '', $page );
+		add_settings_field( 'elpt_layout_preset', __( 'Listing style', 'portfolio-elementor' ), array( __CLASS__, 'elpt_layout_preset_callback' ), $page, 'elpt_main' );
+		add_settings_field( 'elpt_accent_color', __( 'Accent color', 'portfolio-elementor' ), array( __CLASS__, 'elpt_accent_color_callback' ), $page, 'elpt_main' );
+		add_settings_field( 'elpt_tab_radius', __( 'Tab radius (px)', 'portfolio-elementor' ), array( __CLASS__, 'elpt_tab_radius_callback' ), $page, 'elpt_main' );
+		add_settings_field( 'elpt_card_radius', __( 'Card radius (px)', 'portfolio-elementor' ), array( __CLASS__, 'elpt_card_radius_callback' ), $page, 'elpt_main' );
+		add_settings_field( 'elpt_pagination_enable', __( 'Pagination', 'portfolio-elementor' ), array( __CLASS__, 'elpt_pagination_enable_callback' ), $page, 'elpt_main' );
+		add_settings_field( 'elpt_pagination_mode', __( 'Pagination type', 'portfolio-elementor' ), array( __CLASS__, 'elpt_pagination_mode_callback' ), $page, 'elpt_main' );
+		add_settings_field( 'elpt_pagination_per_page', __( 'Items per load', 'portfolio-elementor' ), array( __CLASS__, 'elpt_pagination_per_page_callback' ), $page, 'elpt_main' );
+		add_settings_field( 'elpt_color', __('Legacy color', 'portfolio-elementor'), array( __CLASS__, 'elpt_color_callback'), $page, 'elpt_main' );
 
 		//Shortcode Section
 		//add_settings_section( 'elpt_howto', __( 'How to display the portfolio grid', 'elpt' ), 'elpt_shortcode_callback', $page );
 	}
 
 	//Fields Callback
+	public static function elpt_layout_preset_callback() {
+		$value   = get_option( Powerfolio_Styles::OPTION_PRESET, 'mockups' );
+		$options = Powerfolio_Styles::get_layout_preset_options();
+		echo '<select name="' . esc_attr( Powerfolio_Styles::OPTION_PRESET ) . '">';
+		foreach ( $options as $key => $label ) {
+			echo '<option value="' . esc_attr( $key ) . '" ' . selected( $value, $key, false ) . '>' . esc_html( $label ) . '</option>';
+		}
+		echo '</select>';
+	}
+
+	public static function elpt_accent_color_callback() {
+		echo '<input type="text" name="' . esc_attr( Powerfolio_Styles::OPTION_ACCENT ) . '" class="color-picker" value="' . esc_attr( get_option( Powerfolio_Styles::OPTION_ACCENT, '#5c2d91' ) ) . '">';
+	}
+
+	public static function elpt_tab_radius_callback() {
+		echo '<input type="number" min="0" max="100" name="' . esc_attr( Powerfolio_Styles::OPTION_TAB_RADIUS ) . '" value="' . esc_attr( get_option( Powerfolio_Styles::OPTION_TAB_RADIUS, 50 ) ) . '">';
+	}
+
+	public static function elpt_card_radius_callback() {
+		echo '<input type="number" min="0" max="80" name="' . esc_attr( Powerfolio_Styles::OPTION_CARD_RADIUS ) . '" value="' . esc_attr( get_option( Powerfolio_Styles::OPTION_CARD_RADIUS, 16 ) ) . '">';
+	}
+
+	public static function elpt_pagination_enable_callback() {
+		$value = get_option( Powerfolio_Styles::OPTION_PAGINATION, 'yes' );
+		echo '<label><input type="checkbox" name="' . esc_attr( Powerfolio_Styles::OPTION_PAGINATION ) . '" value="yes" ' . checked( $value, 'yes', false ) . '> ' . esc_html__( 'Enable pagination / load more', 'portfolio-elementor' ) . '</label>';
+	}
+
+	public static function elpt_pagination_mode_callback() {
+		$value   = get_option( Powerfolio_Styles::OPTION_PAGINATION_MODE, 'load_more' );
+		$options = Powerfolio_Styles::get_pagination_mode_options();
+		echo '<select name="' . esc_attr( Powerfolio_Styles::OPTION_PAGINATION_MODE ) . '">';
+		foreach ( $options as $key => $label ) {
+			echo '<option value="' . esc_attr( $key ) . '" ' . selected( $value, $key, false ) . '>' . esc_html( $label ) . '</option>';
+		}
+		echo '</select>';
+	}
+
+	public static function elpt_pagination_per_page_callback() {
+		echo '<input type="number" min="1" max="50" name="' . esc_attr( Powerfolio_Styles::OPTION_PER_PAGE ) . '" value="' . esc_attr( get_option( Powerfolio_Styles::OPTION_PER_PAGE, 6 ) ) . '">';
+	}
+
 	public static function elpt_color_callback(){
-		echo '<input type="text" name="elpt_color" class="color-picker" value="' .esc_attr(get_option("elpt_color")) .'"> ' . esc_html__('Select the main color of your website', 'portfolio-elementor') . ' <br>';
+		echo '<input type="text" name="elpt_color" class="color-picker" value="' .esc_attr(get_option("elpt_color")) .'"> ' . esc_html__('Optional legacy color option', 'portfolio-elementor') . ' <br>';
 	}	
 
 	//Texts

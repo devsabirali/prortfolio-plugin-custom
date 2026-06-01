@@ -1,0 +1,180 @@
+/**
+ * DevsAir mockups listing — filter tabs, cards, pagination.
+ */
+.elpt-layout-mockups {
+  --elpt-accent: #5c2d91;
+  --elpt-accent-soft: rgba(92, 45, 145, 0.12);
+  --elpt-tab-radius: 50px;
+  --elpt-card-radius: 16px;
+  --elpt-card-shadow: 0 8px 28px rgba(28, 22, 48, 0.1);
+  --elpt-card-shadow-hover: 0 16px 40px rgba(28, 22, 48, 0.16);
+}
+
+/* Filter tabs */
+.elpt-layout-mockups .elpt-portfolio-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 28px;
+  text-align: center;
+}
+
+.elpt-layout-mockups .elpt-portfolio-filter .portfolio-filter-item {
+  border: 1px solid rgba(92, 45, 145, 0.2);
+  background: #fff;
+  color: var(--elpt-accent);
+  padding: 10px 22px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: var(--elpt-tab-radius);
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 8px rgba(28, 22, 48, 0.04);
+}
+
+.elpt-layout-mockups .elpt-portfolio-filter .portfolio-filter-item:hover {
+  background: var(--elpt-accent-soft);
+  border-color: var(--elpt-accent);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.elpt-layout-mockups .elpt-portfolio-filter .portfolio-filter-item.item-active {
+  background: var(--elpt-accent);
+  color: #fff;
+  border-color: var(--elpt-accent);
+  opacity: 1;
+  box-shadow: 0 6px 18px rgba(92, 45, 145, 0.35);
+}
+
+/* Card grid */
+.elpt-layout-mockups .elpt-portfolio-content .portfolio-item-wrapper {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.elpt-layout-mockups .elpt-portfolio-content .portfolio-item {
+  border-radius: var(--elpt-card-radius);
+  overflow: hidden;
+  box-shadow: var(--elpt-card-shadow);
+  background: #f0edf5;
+  min-height: 220px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.elpt-layout-mockups .elpt-portfolio-content .portfolio-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--elpt-card-shadow-hover);
+}
+
+.elpt-layout-mockups .elpt-portfolio-content .portfolio-item img.elpt-main-image {
+  border-radius: var(--elpt-card-radius);
+  background: #ebe6f2;
+  object-fit: cover;
+  min-height: 220px;
+}
+
+.elpt-layout-mockups.elpt-portfolio-margin .elpt-portfolio-content .portfolio-item-wrapper {
+  padding: 12px;
+}
+
+.elpt-layout-mockups .portfolio-item-infos-wrapper {
+  border-radius: 0 0 var(--elpt-card-radius) var(--elpt-card-radius);
+}
+
+.elpt-layout-mockups .portfolio-item-title-span {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Pagination — numbered */
+.elpt-layout-mockups .isotope-pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+  padding-top: 8px;
+}
+
+.elpt-layout-mockups .isotope-pager a {
+  min-width: 42px;
+  text-align: center;
+  padding: 10px 14px;
+  margin: 0;
+  background: #fff;
+  color: var(--elpt-accent);
+  border: 1px solid rgba(92, 45, 145, 0.25);
+  border-radius: var(--elpt-tab-radius);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.25s ease;
+}
+
+.elpt-layout-mockups .isotope-pager a:hover,
+.elpt-layout-mockups .isotope-pager a.active {
+  background: var(--elpt-accent);
+  color: #fff;
+  border-color: var(--elpt-accent);
+  opacity: 1;
+}
+
+/* Load more */
+.elpt-layout-mockups .elpt-portfolio-pagination {
+  text-align: center;
+  margin-top: 36px;
+}
+
+.elpt-layout-mockups .elpt-load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 36px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--elpt-accent);
+  border: none;
+  border-radius: var(--elpt-tab-radius);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(92, 45, 145, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.elpt-layout-mockups .elpt-load-more-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(92, 45, 145, 0.45);
+}
+
+.elpt-layout-mockups .elpt-load-more-btn:disabled,
+.elpt-layout-mockups .elpt-load-more-btn.is-hidden {
+  display: none;
+}
+
+.elpt-layout-mockups .elpt-load-more-btn.is-loading {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.elpt-layout-mockups .elpt-infinite-sentinel {
+  width: 100%;
+  height: 1px;
+  margin-top: 20px;
+  visibility: hidden;
+}
+
+@media (max-width: 767px) {
+  .elpt-layout-mockups .elpt-portfolio-filter .portfolio-filter-item {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .elpt-layout-mockups .elpt-portfolio-content .portfolio-item {
+    min-height: 180px;
+  }
+}

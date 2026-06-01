@@ -11,10 +11,134 @@ class Powerfolio_Portfolio {
 		add_action( 'init', array( $this, 'register_portfolio_post_type') , 20 );
 		add_action( 'init', array( $this, 'create_portfolio_taxonomies') , 20 );
 		add_action( 'init', array( $this, 'register_portfolio_shortcodes') , 20 );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_scripts') , 20 );		
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_scripts') , 20 );
+		add_action( 'after_setup_theme', array( $this, 'ensure_thumbnail_support' ), 20 );
+		add_filter( 'post_thumbnail_id', array( $this, 'filter_post_thumbnail_id' ), 10, 2 );
+		add_filter( 'has_post_thumbnail', array( $this, 'filter_has_post_thumbnail' ), 10, 3 );
+		add_action( 'save_post_elemenfolio', array( $this, 'maybe_set_featured_image_on_save' ), 20, 2 );
+		add_action( 'elementor/frontend/widget/before_render', array( $this, 'fix_elementor_image_widget_placeholder' ), 10, 1 );
 		
 		//Flush rewrite rules
 		add_action( 'init', array( __CLASS__, 'flush_rewrite_rules_maybe') , 20 );
+	}
+
+	/**
+	 * Ensure themes expose featured images for portfolio items.
+	 */
+	public function ensure_thumbnail_support() {
+		add_post_type_support( 'elemenfolio', 'thumbnail' );
+		if ( function_exists( 'add_theme_support' ) ) {
+			add_theme_support( 'post-thumbnails' );
+		}
+	}
+
+	/**
+	 * Use portfolio fallbacks when no WordPress featured image is set.
+	 *
+	 * @param int          $thumbnail_id Attachment ID.
+	 * @param int|WP_Post  $post         Post ID or object.
+	 * @return int
+	 */
+	public function filter_post_thumbnail_id( $thumbnail_id, $post ) {
+		if ( $thumbnail_id ) {
+			return $thumbnail_id;
+		}
+
+		$post = get_post( $post );
+		if ( ! $post || 'elemenfolio' !== $post->post_type ) {
+			return $thumbnail_id;
+		}
+
+		$resolved = Powerfolio_Common_Settings::resolve_portfolio_thumbnail_id( $post->ID );
+		return $resolved > 0 ? $resolved : $thumbnail_id;
+	}
+
+	/**
+	 * @param bool        $has_thumbnail Whether the post has a featured image.
+	 * @param int|WP_Post $post          Post ID or object.
+	 * @param int         $thumbnail_id  Attachment ID.
+	 * @return bool
+	 */
+	public function filter_has_post_thumbnail( $has_thumbnail, $post, $thumbnail_id ) {
+		if ( $has_thumbnail ) {
+			return $has_thumbnail;
+		}
+
+		$post = get_post( $post );
+		if ( ! $post || 'elemenfolio' !== $post->post_type ) {
+			return $has_thumbnail;
+		}
+
+		return Powerfolio_Common_Settings::resolve_portfolio_thumbnail_id( $post->ID ) > 0;
+	}
+
+	/**
+	 * Persist resolved image as featured image when saving portfolio items.
+	 *
+	 * @param int     $post_id Post ID.
+	 * @param WP_Post $post    Post object.
+	 */
+	public function maybe_set_featured_image_on_save( $post_id, $post ) {
+		if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		if ( get_post_thumbnail_id( $post_id ) ) {
+			return;
+		}
+
+		$resolved = Powerfolio_Common_Settings::resolve_portfolio_thumbnail_id( $post_id );
+		if ( $resolved > 0 ) {
+			set_post_thumbnail( $post_id, $resolved );
+		}
+	}
+
+	/**
+	 * Replace Elementor placeholder images on single portfolio pages.
+	 *
+	 * @param \Elementor\Element_Base $element Elementor element.
+	 */
+	public function fix_elementor_image_widget_placeholder( $element ) {
+		if ( ! is_singular( 'elemenfolio' ) || ! is_object( $element ) || ! method_exists( $element, 'get_name' ) ) {
+			return;
+		}
+
+		if ( 'image' !== $element->get_name() || ! method_exists( $element, 'get_settings' ) ) {
+			return;
+		}
+
+		$settings = $element->get_settings();
+		$image    = isset( $settings['image'] ) && is_array( $settings['image'] ) ? $settings['image'] : array();
+		$image_id = isset( $image['id'] ) ? (int) $image['id'] : 0;
+		$image_url = isset( $image['url'] ) ? $image['url'] : '';
+
+		if ( $image_id > 0 && ! Powerfolio_Common_Settings::is_placeholder_image_url( $image_url ) ) {
+			return;
+		}
+
+		$post_id    = get_queried_object_id();
+		$resolved_id = Powerfolio_Common_Settings::resolve_portfolio_thumbnail_id( $post_id );
+		if ( $resolved_id <= 0 ) {
+			return;
+		}
+
+		$resolved_url = wp_get_attachment_image_url( $resolved_id, 'full' );
+		if ( ! $resolved_url ) {
+			return;
+		}
+
+		$settings['image'] = array(
+			'id'  => $resolved_id,
+			'url' => $resolved_url,
+		);
+
+		if ( method_exists( $element, 'set_settings' ) ) {
+			$element->set_settings( $settings );
+		}
 	}
 
 	/*
@@ -150,6 +274,7 @@ class Powerfolio_Portfolio {
 
 		//Custom CSS
 		wp_enqueue_style( 'elpt-portfolio-css', $assets_dir .  'assets/css/powerfolio_css.css', array(), '3.2.2' );
+		Powerfolio_Styles::enqueue_assets();
 	}
 
 	/*
@@ -265,6 +390,12 @@ class Powerfolio_Portfolio {
 					'grid_fixed_layout' => '',
 					'element_id' => '',
 					'item_icon' => array(),
+					'layout_preset' => '',
+					'pagination_enable' => '',
+					'pagination_mode' => '',
+					'accent_color' => '',
+					'tab_radius' => '',
+					'card_radius' => '',
 				);
 
 				// Merge with defaults
@@ -272,7 +403,7 @@ class Powerfolio_Portfolio {
 
 				// Apply escaping to scalar string values for security
 				// Skip arrays like 'item_icon' and 'taxonomy' (when array)
-				$skip_escape = array('item_icon', 'taxonomy', 'type');
+				$skip_escape = array( 'item_icon', 'taxonomy', 'type', 'layout_preset', 'pagination_mode', 'accent_color', 'tab_radius', 'card_radius', 'pagination_enable' );
 				foreach ($settings as $key => $value) {
 					if (is_string($value) && !in_array($key, $skip_escape, true)) {
 						$settings[$key] = esc_attr($value);
@@ -878,8 +1009,8 @@ class Powerfolio_Portfolio {
 		if (!empty($styles['portfoliocolumns'])) {
 			$settings['portfoliocolumns'] = $styles['portfoliocolumns'];
 		}
-	
-		return $settings;
+
+		return Powerfolio_Styles::merge_layout_settings( $settings );
 	}
 
 
@@ -1045,7 +1176,7 @@ class Powerfolio_Portfolio {
 	private static function kses_portfolio_output( $html ) {
 		$allowed = wp_kses_allowed_html( 'post' );
 
-		foreach ( array( 'a', 'div', 'span', 'img', 'input' ) as $tag ) {
+		foreach ( array( 'a', 'div', 'span', 'img', 'input', 'button' ) as $tag ) {
 			if ( ! isset( $allowed[ $tag ] ) ) {
 				$allowed[ $tag ] = array();
 			}
@@ -1082,13 +1213,24 @@ class Powerfolio_Portfolio {
 		// Get settings
 		$settings = self::get_shortcode_settings($settings, $widget);
 
-		if ( isset($settings['pagination'] ) && $settings['pagination'] == 'true' )  {
-
-			$data_to_send = array(
-				'itemsPerPageDefault' => $settings['pagination_postsperpage'],
+		if ( isset( $settings['pagination'] ) && 'true' === $settings['pagination'] ) {
+			$per_page = ! empty( $settings['pagination_postsperpage'] ) ? (int) $settings['pagination_postsperpage'] : 6;
+			wp_localize_script(
+				'elpt-portfoliojs',
+				'powerfolioGridSettings',
+				array(
+					'itemsPerPageDefault' => max( 1, $per_page ),
+					'paginationMode'      => ! empty( $settings['pagination_mode'] ) ? $settings['pagination_mode'] : 'load_more',
+					'loadMoreLabel'       => __( 'Load more projects', 'portfolio-elementor' ),
+					'loadingLabel'        => __( 'Loading…', 'portfolio-elementor' ),
+				)
 			);
-			$data_to_send = json_encode($data_to_send);
-			wp_add_inline_script( 'elpt-portfoliojs', 'const gridSettings = ' . $data_to_send, 'before' );
+			// Back-compat for older inline scripts.
+			wp_add_inline_script(
+				'elpt-portfoliojs',
+				'var gridSettings = typeof powerfolioGridSettings !== "undefined" ? powerfolioGridSettings : {};',
+				'before'
+			);
 		}
 	
 		// Get widget items
@@ -1106,7 +1248,11 @@ class Powerfolio_Portfolio {
 		if (count($portfolio_items)) {
 			$output = '';
 
-			$output .= '<div class="elpt-portfolio '.$settings['element_id'].'">';
+			$layout_classes = Powerfolio_Styles::get_wrapper_classes( $settings );
+			$inline_vars    = Powerfolio_Styles::get_inline_css_variables( $settings );
+			$wrapper_class  = trim( 'elpt-portfolio ' . $settings['element_id'] . ' ' . $layout_classes );
+
+			$output .= '<div class="' . esc_attr( $wrapper_class ) . '" style="' . esc_attr( $inline_vars ) . '">';
 
 				//Filter
 				$output .= self::get_grid_filter($settings, $widget);
@@ -1118,6 +1264,10 @@ class Powerfolio_Portfolio {
 				}
 
 				$output .= '</div>';
+
+				if ( isset( $settings['pagination'] ) && 'true' === $settings['pagination'] ) {
+					$output .= '<div class="elpt-portfolio-pagination" aria-hidden="true"></div>';
+				}
 
 			$output .= '</div>';
 

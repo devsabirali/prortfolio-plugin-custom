@@ -99,6 +99,51 @@ class Powerfolio_Common_Settings {
     }
 
     /**
+     * Resolve attachment ID for a portfolio item (featured image + fallbacks).
+     *
+     * @param int $post_id Post ID.
+     * @return int Attachment ID or 0.
+     */
+    public static function resolve_portfolio_thumbnail_id( $post_id ) {
+        $post_id = (int) $post_id;
+        if ( ! $post_id ) {
+            return 0;
+        }
+
+        $stored_id = (int) get_post_meta( $post_id, '_thumbnail_id', true );
+        if ( $stored_id > 0 && wp_attachment_is_image( $stored_id ) ) {
+            return $stored_id;
+        }
+
+        $elementor_id = self::get_thumbnail_id_from_elementor( $post_id );
+        if ( $elementor_id > 0 ) {
+            return $elementor_id;
+        }
+
+        $attachments = get_posts(
+            array(
+                'post_parent'    => $post_id,
+                'post_type'      => 'attachment',
+                'post_mime_type' => 'image',
+                'posts_per_page' => 1,
+                'orderby'        => 'menu_order',
+                'order'          => 'ASC',
+                'fields'         => 'ids',
+            )
+        );
+        if ( ! empty( $attachments[0] ) ) {
+            return (int) $attachments[0];
+        }
+
+        $content_id = self::get_thumbnail_id_from_post_content( $post_id );
+        if ( $content_id > 0 ) {
+            return $content_id;
+        }
+
+        return 0;
+    }
+
+    /**
      * Featured image URL for portfolio CPT items.
      *
      * @param int    $post_id Post ID.
@@ -111,17 +156,131 @@ class Powerfolio_Common_Settings {
             return '';
         }
 
-        $url = get_the_post_thumbnail_url( $post_id, $size );
-        if ( $url ) {
-            return $url;
-        }
-
-        $thumbnail_id = get_post_thumbnail_id( $post_id );
-        if ( $thumbnail_id ) {
-            return self::get_image_url( $thumbnail_id, $size );
+        $thumbnail_id = self::resolve_portfolio_thumbnail_id( $post_id );
+        if ( $thumbnail_id > 0 ) {
+            $url = self::get_image_url( $thumbnail_id, $size );
+            if ( $url ) {
+                return $url;
+            }
         }
 
         return '';
+    }
+
+    /**
+     * Find first image attachment ID inside Elementor JSON data.
+     *
+     * @param int $post_id Post ID.
+     * @return int
+     */
+    public static function get_thumbnail_id_from_elementor( $post_id ) {
+        $raw = get_post_meta( $post_id, '_elementor_data', true );
+        if ( empty( $raw ) ) {
+            return 0;
+        }
+
+        if ( is_string( $raw ) ) {
+            $raw = json_decode( $raw, true );
+        }
+
+        if ( ! is_array( $raw ) ) {
+            return 0;
+        }
+
+        return self::find_image_id_in_elementor_elements( $raw );
+    }
+
+    /**
+     * Walk Elementor elements tree for image widget / background images.
+     *
+     * @param array $elements Elementor elements.
+     * @return int
+     */
+    private static function find_image_id_in_elementor_elements( $elements ) {
+        foreach ( $elements as $element ) {
+            if ( ! is_array( $element ) ) {
+                continue;
+            }
+
+            if ( ! empty( $element['settings'] ) && is_array( $element['settings'] ) ) {
+                $settings = $element['settings'];
+
+                foreach ( array( 'image', 'background_image', 'bg_image' ) as $key ) {
+                    if ( empty( $settings[ $key ] ) || ! is_array( $settings[ $key ] ) ) {
+                        continue;
+                    }
+
+                    $image = $settings[ $key ];
+                    if ( empty( $image['id'] ) || self::is_placeholder_image_url( isset( $image['url'] ) ? $image['url'] : '' ) ) {
+                        continue;
+                    }
+
+                    $attachment_id = (int) $image['id'];
+                    if ( $attachment_id > 0 && wp_attachment_is_image( $attachment_id ) ) {
+                        return $attachment_id;
+                    }
+                }
+            }
+
+            if ( ! empty( $element['elements'] ) && is_array( $element['elements'] ) ) {
+                $nested = self::find_image_id_in_elementor_elements( $element['elements'] );
+                if ( $nested > 0 ) {
+                    return $nested;
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * Parse classic editor / block content for an image attachment.
+     *
+     * @param int $post_id Post ID.
+     * @return int
+     */
+    public static function get_thumbnail_id_from_post_content( $post_id ) {
+        $content = get_post_field( 'post_content', $post_id );
+        if ( ! is_string( $content ) || $content === '' ) {
+            return 0;
+        }
+
+        if ( preg_match( '/wp-image-(\d+)/i', $content, $matches ) ) {
+            $attachment_id = (int) $matches[1];
+            if ( $attachment_id > 0 && wp_attachment_is_image( $attachment_id ) ) {
+                return $attachment_id;
+            }
+        }
+
+        if ( preg_match( '/<img[^>]+src=["\']([^"\']+)["\']/i', $content, $matches ) ) {
+            $attachment_id = attachment_url_to_postid( $matches[1] );
+            if ( $attachment_id > 0 ) {
+                return (int) $attachment_id;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * Detect Elementor / theme placeholder graphics.
+     *
+     * @param string $url Image URL.
+     * @return bool
+     */
+    public static function is_placeholder_image_url( $url ) {
+        if ( ! is_string( $url ) || $url === '' ) {
+            return true;
+        }
+
+        if ( class_exists( '\Elementor\Utils' ) ) {
+            $placeholder = \Elementor\Utils::get_placeholder_image_src();
+            if ( $url === $placeholder ) {
+                return true;
+            }
+        }
+
+        return ( false !== stripos( $url, 'placeholder' ) );
     }
 
     /**

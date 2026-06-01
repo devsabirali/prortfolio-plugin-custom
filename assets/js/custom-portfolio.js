@@ -66,12 +66,12 @@ jQuery(window).on('load', function () {
             $container.isotope('layout');
         });
     
-        // Pagination Variables
-        var itemsPerPageDefault = 10; // Default value
-
-        if (typeof gridSettings !== 'undefined' && gridSettings.itemsPerPageDefault !== undefined) {
-            itemsPerPageDefault = gridSettings.itemsPerPageDefault;
-        }
+        // Pagination variables
+        var gridConfig = (typeof powerfolioGridSettings !== 'undefined') ? powerfolioGridSettings : (typeof gridSettings !== 'undefined' ? gridSettings : {});
+        var itemsPerPageDefault = gridConfig.itemsPerPageDefault || 10;
+        var paginationMode = gridConfig.paginationMode || 'numbers';
+        var loadMoreLabel = gridConfig.loadMoreLabel || 'Load more projects';
+        var loadingLabel = gridConfig.loadingLabel || 'Loading…';
 
         var itemsPerPage = defineItemsPerPage();
         var currentNumberPages = 1;
@@ -80,105 +80,203 @@ jQuery(window).on('load', function () {
         var filterAtribute = 'data-filter';
         var pageAtribute = 'data-page';
         var pagerClass = 'isotope-pager';
+        var $portfolioRoot = $container.closest('.elpt-portfolio');
+        var $loadMoreBtn = null;
+        var infiniteObserver = null;
+        var isLoadingMore = false;
 
-        //Restore on window resize
-        jQuery(window).resize(function(){
-            changeFilter(itemSelector);
-        })
+        jQuery(window).resize(function () {
+            applyPageFilter();
+        });
 
-
-
-        // update items based on current filters    
-        function changeFilter(selector) { 
-            $container.isotope({ filter: selector }
-        ); }
-
+        function changeFilter(selector) {
+            $container.isotope({ filter: selector });
+        }
 
         function getFilterSelector() {
             var selector = itemSelector;
             if (currentFilter != '*') {
-              selector += currentFilter;
+                selector += currentFilter;
             }
             return selector;
         }
 
-        function goToPage(n) {
-            currentPage = n;
+        function itemMatchesCategory($item) {
+            if (currentFilter === '*') {
+                return true;
+            }
+            return $item.is(currentFilter);
+        }
 
-            var selector = getFilterSelector();
-            selector += `[${pageAtribute}="${currentPage}"]`;
-
-            // Check if Fixed Layout Mode is enabled (only for Grid Builder)
+        function applyPageFilter() {
             var $gridBuilder = jQuery('.elpt-portfolio-content-packery.elpt-portfolio-grid-builder');
             var isFixedLayout = $gridBuilder.length > 0 && $gridBuilder.hasClass('elpt-fixed-layout-mode');
 
             if (isFixedLayout) {
-                // Fixed Layout: Re-apply position classes for items on this page
                 applyFixedLayoutPositionsForPage($gridBuilder, currentPage);
             }
 
-            changeFilter(selector);
+            if (paginationMode === 'numbers') {
+                var selector = getFilterSelector();
+                selector += '[' + pageAtribute + '="' + currentPage + '"]';
+                changeFilter(selector);
+            } else {
+                $container.isotope({
+                    filter: function () {
+                        var $el = jQuery(this);
+                        if (!itemMatchesCategory($el)) {
+                            return false;
+                        }
+                        var page = parseInt($el.attr(pageAtribute), 10) || 1;
+                        return page <= currentPage;
+                    }
+                });
+            }
 
-            // Fixed Layout: Force layout recalculation after filtering
-            // This ensures container height is correct for the visible items only
             if (isFixedLayout) {
                 $container.isotope('layout');
             }
+
+            updatePaginationUI();
         }
-    
+
+        function goToPage(n) {
+            currentPage = parseInt(n, 10) || 1;
+            applyPageFilter();
+        }
+
         function defineItemsPerPage() {
-            var pages = itemsPerPageDefault;
-    
-            return pages;
+            return itemsPerPageDefault;
         }
-        
-        function setPagination() {
 
-            var SettingsPagesOnItems = function(){
+        function assignPageAttributes() {
+            var item = 1;
+            var page = 1;
+            var selector = getFilterSelector();
 
-                var item = 1;
-                var page = 1;
-                var selector = getFilterSelector();
+            $container.children(selector).each(function () {
+                if (item > itemsPerPage) {
+                    page++;
+                    item = 1;
+                }
+                jQuery(this).attr(pageAtribute, page);
+                item++;
+            });
 
-                $container.children(selector).each(function(){
-                    if( item > itemsPerPage ) {
-                        page++;
-                        item = 1;
-                    }
-                    jQuery(this).attr(pageAtribute, page);
-                    item++;
-                });
+            currentNumberPages = page;
+        }
 
-                currentNumberPages = page;
+        function updatePaginationUI() {
+            if (!$loadMoreBtn || !$loadMoreBtn.length) {
+                return;
+            }
 
-            }();
-    
-            var CreatePagers = function() {
+            if (currentPage >= currentNumberPages) {
+                $loadMoreBtn.addClass('is-hidden').prop('disabled', true);
+            } else {
+                $loadMoreBtn.removeClass('is-hidden is-loading').prop('disabled', false).text(loadMoreLabel);
+            }
+        }
 
-                var $isotopePager = ( jQuery('.'+pagerClass).length == 0 ) ? jQuery('<div class="'+pagerClass+'"></div>') : jQuery('.'+pagerClass);
+        function loadNextPage() {
+            if (isLoadingMore || currentPage >= currentNumberPages) {
+                return;
+            }
 
-                $isotopePager.html('');
+            isLoadingMore = true;
+            if ($loadMoreBtn && $loadMoreBtn.length) {
+                $loadMoreBtn.addClass('is-loading').text(loadingLabel);
+            }
 
-                for( var i = 0; i < currentNumberPages; i++ ) {
-                    var $pager = jQuery('<a href="javascript:void(0);" class="pager" '+pageAtribute+'="'+(i+1)+'"></a>');
-                        $pager.html(i+1);
+            window.setTimeout(function () {
+                currentPage++;
+                applyPageFilter();
+                isLoadingMore = false;
+            }, 280);
+        }
 
-                        $pager.click(function(){
-                            jQuery('.isotope-pager .active').removeClass('active');
-                            jQuery(this).addClass('active');
-                            var page = jQuery(this).eq(0).attr(pageAtribute);
-                            goToPage(page);
-                        });
+        function createPaginationUI() {
+            $portfolioRoot.find('.' + pagerClass).remove();
+            $portfolioRoot.find('.elpt-portfolio-pagination').not('[aria-hidden="true"]').remove();
 
-                    $pager.appendTo($isotopePager);
+            if (paginationMode === 'load_more') {
+                var $wrap = $portfolioRoot.find('.elpt-portfolio-pagination[aria-hidden="true"]');
+                if (!$wrap.length) {
+                    $wrap = jQuery('<div class="elpt-portfolio-pagination"></div>');
+                    $container.after($wrap);
+                } else {
+                    $wrap.removeAttr('aria-hidden');
                 }
 
-                $container.after($isotopePager);
+                $loadMoreBtn = jQuery('<button type="button" class="elpt-load-more-btn"></button>').text(loadMoreLabel);
+                $loadMoreBtn.on('click', function (e) {
+                    e.preventDefault();
+                    loadNextPage();
+                });
+                $wrap.empty().append($loadMoreBtn);
+                updatePaginationUI();
+                return;
+            }
 
-            }();
-    
+            if (paginationMode === 'infinite') {
+                var $sentinelWrap = $portfolioRoot.find('.elpt-portfolio-pagination[aria-hidden="true"]');
+                if (!$sentinelWrap.length) {
+                    $sentinelWrap = jQuery('<div class="elpt-portfolio-pagination"></div>');
+                    $container.after($sentinelWrap);
+                } else {
+                    $sentinelWrap.removeAttr('aria-hidden');
+                }
+
+                $sentinelWrap.empty().append('<div class="elpt-infinite-sentinel"></div>');
+                var $sentinel = $sentinelWrap.find('.elpt-infinite-sentinel');
+
+                if ('IntersectionObserver' in window) {
+                    if (infiniteObserver) {
+                        infiniteObserver.disconnect();
+                    }
+                    infiniteObserver = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                loadNextPage();
+                            }
+                        });
+                    }, { rootMargin: '160px' });
+                    infiniteObserver.observe($sentinel[0]);
+                }
+                return;
+            }
+
+            // Numbered pagination (default)
+            var $isotopePager = jQuery('.' + pagerClass);
+            if ($isotopePager.length === 0) {
+                $isotopePager = jQuery('<div class="' + pagerClass + '"></div>');
+                $container.after($isotopePager);
+            }
+
+            $isotopePager.html('');
+
+            for (var i = 0; i < currentNumberPages; i++) {
+                var pageNum = i + 1;
+                var $pager = jQuery('<a href="javascript:void(0);" class="pager" ' + pageAtribute + '="' + pageNum + '"></a>');
+                $pager.html(pageNum);
+
+                $pager.on('click', function () {
+                    jQuery('.isotope-pager .active').removeClass('active');
+                    jQuery(this).addClass('active');
+                    goToPage(jQuery(this).attr(pageAtribute));
+                });
+
+                $isotopePager.append($pager);
+            }
+
+            $isotopePager.find('.pager').first().addClass('active');
         }
-    
+
+        function setPagination() {
+            assignPageAttributes();
+            createPaginationUI();
+        }
+
         setPagination();
         goToPage(1);
 

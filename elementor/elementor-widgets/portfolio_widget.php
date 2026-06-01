@@ -136,6 +136,67 @@ class ELPT_Portfolio_Widget extends Widget_Base {
                 'showfilter' => 'yes',
             ],
         ] );
+        $this->add_control( 'layout_preset', [
+            'label'   => __( 'Listing style', 'portfolio-elementor' ),
+            'type'    => Controls_Manager::SELECT,
+            'default' => 'mockups',
+            'options' => \Powerfolio_Styles::get_layout_preset_options(),
+        ] );
+        $this->add_control( 'pagination_enable', [
+            'label'        => __( 'Enable pagination', 'portfolio-elementor' ),
+            'type'         => Controls_Manager::SWITCHER,
+            'label_on'     => __( 'Yes', 'portfolio-elementor' ),
+            'label_off'    => __( 'No', 'portfolio-elementor' ),
+            'return_value' => 'yes',
+            'default'      => 'yes',
+        ] );
+        $this->add_control( 'pagination_mode', [
+            'label'     => __( 'Pagination type', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::SELECT,
+            'default'   => 'load_more',
+            'options'   => \Powerfolio_Styles::get_pagination_mode_options(),
+            'condition' => [
+                'pagination_enable' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'pagination_postsperpage', [
+            'label'     => __( 'Items per page / load', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::NUMBER,
+            'default'   => 6,
+            'min'       => 1,
+            'max'       => 50,
+            'condition' => [
+                'pagination_enable' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'accent_color', [
+            'label'     => __( 'Accent color (tabs & buttons)', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::COLOR,
+            'default'   => '#5c2d91',
+            'condition' => [
+                'layout_preset' => 'mockups',
+            ],
+        ] );
+        $this->add_control( 'tab_radius', [
+            'label'     => __( 'Tab border radius (px)', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::NUMBER,
+            'default'   => 50,
+            'min'       => 0,
+            'max'       => 100,
+            'condition' => [
+                'layout_preset' => 'mockups',
+            ],
+        ] );
+        $this->add_control( 'card_radius', [
+            'label'     => __( 'Card border radius (px)', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::NUMBER,
+            'default'   => 16,
+            'min'       => 0,
+            'max'       => 80,
+            'condition' => [
+                'layout_preset' => 'mockups',
+            ],
+        ] );
         $this->add_control( 'Upgrade_note1', [
             'label'           => '',
             'type'            => \Elementor\Controls_Manager::RAW_HTML,
@@ -568,8 +629,11 @@ class ELPT_Portfolio_Widget extends Widget_Base {
      */
     protected function render() {
         $settings = $this->get_settings();
-        // Let's use this input to set posts per page for pagination
-        echo '<input id="powerfolio_pagination_postsperpage" type="hidden" value="' . esc_attr( ( isset( $settings['pagination_postsperpage'] ) ? $settings['pagination_postsperpage'] : '' ) ) . '" />';
+
+        if ( isset( $settings['pagination_enable'] ) && 'yes' === $settings['pagination_enable'] ) {
+            $settings['pagination'] = 'true';
+        }
+
         // Normalize settings for Powerfolio_Portfolio class
         // Map Elementor control names to expected keys
         if ( isset( $settings['item_hide_title'] ) ) {

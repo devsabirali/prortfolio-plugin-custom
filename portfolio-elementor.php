@@ -81,6 +81,7 @@ if ( function_exists( 'pe_fs' ) ) {
          * Common Settings for Widgets
          */
         require 'classes/Powerfolio_Common_Settings.php';
+        require 'classes/Powerfolio_Styles.php';
         /*
          * Elementor
          */
