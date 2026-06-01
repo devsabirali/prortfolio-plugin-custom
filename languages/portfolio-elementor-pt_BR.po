@@ -1,0 +1,1128 @@
+# Portuguese (Brazil) translation for Portfolio & Image Gallery for Elementor | PowerFolio
+# Copyright (C) 2025 PWR Plugins
+# This file is distributed under the same license as the Portfolio & Image Gallery for Elementor | PowerFolio plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Portfolio & Image Gallery for Elementor | PowerFolio 3.2.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/portfolio-elementor\n"
+"Last-Translator: Diego Pereira <diego@dotrex.co>\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-10-08T20:16:53+00:00\n"
+"PO-Revision-Date: 2025-10-08 17:22+0000\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: portfolio-elementor\n"
+
+#. Plugin Name of the plugin
+#: portfolio-elementor.php
+msgid "Portfolio & Image Gallery for Elementor | PowerFolio"
+msgstr "Portfolio e Galeria de Imagens para Elementor | PowerFolio"
+
+#. Plugin URI of the plugin
+#: portfolio-elementor.php
+msgid "https://powerfoliowp.com"
+msgstr "https://powerfoliowp.com"
+
+#. Description of the plugin
+#: portfolio-elementor.php
+msgid "Create portfolios and image galleries in seconds using Elementor, Gutenberg blocks, or any page builder!"
+msgstr "Crie portfólios e galerias de imagens em segundos usando Elementor, blocos Gutenberg ou qualquer construtor de páginas!"
+
+#. Author of the plugin
+#: portfolio-elementor.php
+msgid "PWR Plugins"
+msgstr "PWR Plugins"
+
+#. Author URI of the plugin
+#: portfolio-elementor.php
+msgid "https://dotrex.co"
+msgstr "https://dotrex.co"
+
+msgid "Yes"
+msgstr "Sim"
+
+#: classes/Powerfolio_Common_Settings.php:19
+msgid "No"
+msgstr "Não"
+
+#: classes/Powerfolio_Common_Settings.php:27
+msgid "Two Columns"
+msgstr "Duas Colunas"
+
+#: classes/Powerfolio_Common_Settings.php:28
+msgid "Three Columns"
+msgstr "Três Colunas"
+
+#: classes/Powerfolio_Common_Settings.php:29
+msgid "Four Columns"
+msgstr "Quatro Colunas"
+
+#: classes/Powerfolio_Common_Settings.php:30
+msgid "Five Columns"
+msgstr "Cinco Colunas"
+
+#: classes/Powerfolio_Common_Settings.php:31
+msgid "Six Columns"
+msgstr "Seis Colunas"
+
+#: classes/Powerfolio_Common_Settings.php:39
+msgid "One (default)"
+msgstr "Um (padrão)"
+
+#: classes/Powerfolio_Common_Settings.php:49
+#: classes/Powerfolio_Common_Settings.php:57
+msgid "Masonry"
+msgstr "Masonry"
+
+#: classes/Powerfolio_Common_Settings.php:50
+#: classes/Powerfolio_Common_Settings.php:58
+msgid "Boxes"
+msgstr "Caixas"
+
+#: classes/Powerfolio_Common_Settings.php:51
+#: classes/Powerfolio_Common_Settings.php:66
+msgid "Customized Grid Service"
+msgstr "Serviço de Grid Personalizado"
+
+#: classes/Powerfolio_Common_Settings.php:59
+msgid "Grid Builder"
+msgstr "Construtor de Grid"
+
+#: classes/Powerfolio_Common_Settings.php:60
+msgid "Special Grid 1"
+msgstr "Grid Especial 1"
+
+#: classes/Powerfolio_Common_Settings.php:61
+msgid "Special Grid 2"
+msgstr "Grid Especial 2"
+
+#: classes/Powerfolio_Common_Settings.php:62
+msgid "Special Grid 3"
+msgstr "Grid Especial 3"
+
+#: classes/Powerfolio_Common_Settings.php:63
+msgid "Special Grid 4"
+msgstr "Grid Especial 4"
+
+#: classes/Powerfolio_Common_Settings.php:64
+msgid "Justified 1"
+msgstr "Justificado 1"
+
+#: classes/Powerfolio_Common_Settings.php:65
+msgid "Justified 2"
+msgstr "Justificado 2"
+
+#: classes/Powerfolio_Common_Settings.php:79
+#: classes/Powerfolio_Common_Settings.php:105
+msgid "Style 0: Simple"
+msgstr "Estilo 0: Simples"
+
+#: classes/Powerfolio_Common_Settings.php:80
+#: classes/Powerfolio_Common_Settings.php:106
+msgid "Style 1: From Bottom"
+msgstr "Estilo 1: De Baixo"
+
+#: classes/Powerfolio_Common_Settings.php:81
+#: classes/Powerfolio_Common_Settings.php:107
+msgid "Style 2: From Top"
+msgstr "Estilo 2: De Cima"
+
+#: classes/Powerfolio_Common_Settings.php:82
+msgid "Style 3: From Right"
+msgstr "Estilo 3: Da Direita"
+
+#: classes/Powerfolio_Common_Settings.php:83
+msgid "Style 4: From Left"
+msgstr "Estilo 4: Da Esquerda"
+
+#: classes/Powerfolio_Common_Settings.php:84
+msgid "Style 5: Hover Effect 5"
+msgstr "Estilo 5: Efeito de Hover 5"
+
+#: classes/Powerfolio_Common_Settings.php:86
+msgid "Style 7: Text from Left"
+msgstr "Estilo 7: Texto da Esquerda"
+
+#: classes/Powerfolio_Common_Settings.php:87
+msgid "Style 8: Text from right"
+msgstr "Estilo 8: Texto da Direita"
+
+#: classes/Powerfolio_Common_Settings.php:88
+msgid "Style 9: Text from Top"
+msgstr "Estilo 9: Texto de Cima"
+
+#: classes/Powerfolio_Common_Settings.php:89
+msgid "Style 10: Text from Bottom"
+msgstr "Estilo 10: Texto de Baixo"
+
+#: classes/Powerfolio_Common_Settings.php:90
+msgid "Style 11: Zoom Out"
+msgstr "Estilo 11: Zoom Out"
+
+#: classes/Powerfolio_Common_Settings.php:91
+msgid "Style 12: Card from Left"
+msgstr "Estilo 12: Cartão da Esquerda"
+
+#: classes/Powerfolio_Common_Settings.php:92
+msgid "Style 13: Card from Right"
+msgstr "Estilo 13: Cartão da Direita"
+
+#: classes/Powerfolio_Common_Settings.php:93
+msgid "Style 14: Card from Bottom"
+msgstr "Estilo 14: Cartão de Baixo"
+
+#: classes/Powerfolio_Common_Settings.php:94
+msgid "Style 14b: Card from Bottom - Option 2"
+msgstr "Estilo 14b: Cartão de Baixo - Opção 2"
+
+#: classes/Powerfolio_Common_Settings.php:95
+msgid "Style 15: Black and White"
+msgstr "Estilo 15: Preto e Branco"
+
+#: classes/Powerfolio_Common_Settings.php:96
+msgid "Style 16: Content Visible 1"
+msgstr "Estilo 16: Conteúdo Visível 1"
+
+#: classes/Powerfolio_Common_Settings.php:97
+msgid "Style 17: Content Visible 2"
+msgstr "Estilo 17: Conteúdo Visível 2"
+
+#: classes/Powerfolio_Common_Settings.php:98
+msgid "Style 18: Zoom out and Fade in Info from Bottom"
+msgstr "Estilo 18: Zoom Out e Fade In da Informação de Baixo"
+
+#: classes/Powerfolio_Common_Settings.php:99
+msgid "Style 19: Zoom in and Fade in Info from Right"
+msgstr "Estilo 19: Zoom In e Fade In da Informação da Direita"
+
+#: classes/Powerfolio_Common_Settings.php:100
+msgid "Style 20: Zoom in and Fade in Info from Bottom with Tilt"
+msgstr "Estilo 20: Zoom In e Fade In da Informação de Baixo com Inclinação"
+
+#: classes/Powerfolio_Common_Settings.php:101
+msgid "Style 21: Description Zoom In with border"
+msgstr "Estilo 21: Descrição Zoom In com Borda"
+
+#: classes/Powerfolio_Common_Settings.php:108
+msgid "Style 16: Content Visible 2"
+msgstr "Estilo 16: Conteúdo Visível 2"
+
+#: classes/Powerfolio_Common_Settings.php:109
+msgid "Style 17: Content Visible 1"
+msgstr "Estilo 17: Conteúdo Visível 1"
+
+#: classes/Powerfolio_Common_Settings.php:119
+msgid "Image (with the Powerfolio lightbox)"
+msgstr "Imagem (com lightbox do Powerfolio)"
+
+#: classes/Powerfolio_Common_Settings.php:120
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:128
+msgid "Project Details Page"
+msgstr "Página de Detalhes do Projeto"
+
+#: classes/Powerfolio_Common_Settings.php:124
+msgid "Image (with Elementor default lightbox)"
+msgstr "Imagem (com lightbox padrão do Elementor)"
+
+#: classes/Powerfolio_Common_Settings.php:160
+msgid "ENABLE ALL FEATURES"
+msgstr "ATIVAR TODOS OS RECURSOS"
+
+#: classes/Powerfolio_Common_Settings.php:161
+msgid "Upgrade your plugin to PRO version and unlock all features!"
+msgstr "Atualize seu plugin para a versão PRO e desbloqueie todos os recursos!"
+
+#: classes/Powerfolio_Common_Settings.php:162
+msgid "Click here to Upgrade"
+msgstr "Clique aqui para Atualizar"
+
+#: classes/Powerfolio_Common_Settings.php:165
+msgid "Get access to the Paginated Grid (NEW), Special Grids, Grid Builder, extra CSS effects, several customization options and much more!"
+msgstr "Obtenha acesso ao Grid Paginado (NOVO), Grids Especiais, Construtor de Grid, efeitos CSS extras, várias opções de personalização e muito mais!"
+
+#: classes/Powerfolio_Common_Settings.php:168
+msgid "Get access to the Paginated Grid (NEW), Special Grids, extra CSS effects, several customization options and much more!"
+msgstr "Obtenha acesso ao Grid Paginado (NOVO), Grids Especiais, efeitos CSS extras, várias opções de personalização e muito mais!"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:38
+msgid "Image Gallery (Powerfolio)"
+msgstr "Galeria de Imagens (Powerfolio)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:103
+#: elementor/elementor-widgets/portfolio_widget.php:102
+msgid "General Settings"
+msgstr "Configurações Gerais"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:113
+msgid "Title"
+msgstr "Título"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:115
+msgid "List Title"
+msgstr "Título do Item"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:122
+msgid "Tag (To use with filter)"
+msgstr "Tag (Para usar com filtro)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:125
+msgid "Tag 1"
+msgstr "Tag 1"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:133
+msgid "Choose Image"
+msgstr "Escolher Imagem"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:144
+msgid "Hover Image (Optional)"
+msgstr "Imagem de Hover (Opcional)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:146
+msgid "Image to display on hover. Perfect for GIFs or alternative images. If not set, no hover effect will be applied."
+msgstr "Imagem para exibir no hover. Perfeito para GIFs ou imagens alternativas. Se não definido, nenhum efeito de hover será aplicado."
+
+#: elementor/elementor-widgets/image_gallery_widget.php:156
+msgid "Description/Short Text"
+msgstr "Descrição/Texto Curto"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:167
+#: src/image-gallery-block/edit.js:194
+msgid "Image links to"
+msgstr "Imagem leva para"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:172
+#: src/image-gallery-block/edit.js:197
+msgid "Image (with lightbox)"
+msgstr "Imagem (com lightbox)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:173
+#: src/image-gallery-block/edit.js:198
+msgid "Custom URL"
+msgstr "URL Personalizada"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:174
+msgid "Video Lightbox"
+msgstr "Lightbox de Vídeo"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:181
+msgid "Link"
+msgstr "Link"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:183
+msgid "https://your-link.com"
+msgstr "https://seu-link.com"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:200
+msgid "Video URL"
+msgstr "URL do Vídeo"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:202
+msgid "https://www.youtube.com/watch?v=VIDEO_ID ou https://vimeo.com/VIDEO_ID"
+msgstr "https://www.youtube.com/watch?v=VIDEO_ID ou https://vimeo.com/VIDEO_ID"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:205
+msgid "Insira a URL do vídeo do YouTube ou Vimeo que será exibido no lightbox."
+msgstr "Insira a URL do vídeo do YouTube ou Vimeo que será exibido no lightbox."
+
+#: elementor/elementor-widgets/image_gallery_widget.php:225
+msgid "Title #1"
+msgstr "Título #1"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:226
+#: elementor/elementor-widgets/image_gallery_widget.php:230
+msgid "Item content. Click the edit button to change this text."
+msgstr "Conteúdo do item. Clique no botão editar para alterar este texto."
+
+#: elementor/elementor-widgets/image_gallery_widget.php:229
+msgid "Title #2"
+msgstr "Título #2"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:242
+#: elementor/elementor-widgets/portfolio_widget.php:172
+msgid "Only works with the \"elemenfolio\" post type."
+msgstr "Funciona apenas com o tipo de post \"elemenfolio\"."
+
+#: elementor/elementor-widgets/image_gallery_widget.php:248
+#: elementor/elementor-widgets/portfolio_widget.php:178
+msgid "Show category filter?"
+msgstr "Mostrar filtro de categoria?"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:259
+#: elementor/elementor-widgets/portfolio_widget.php:189
+msgid "Show \"All\" option?"
+msgstr "Mostrar opção \"Todos\"?"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:305
+#: elementor/elementor-widgets/portfolio_widget.php:269
+msgid "Grid Settings"
+msgstr "Configurações do Grid"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:315
+msgid "Upgrade your plan to get access to the special grids and also to the Grid Builder - Our exclusive feature! <a href=\"https://checkout.freemius.com/mode/dialog/plugin/7226/plan/12571/\">CLICK TO UPGRADE</a>"
+msgstr "Atualize seu plano para ter acesso aos grids especiais e também ao Construtor de Grid - Nosso recurso exclusivo! <a href=\"https://checkout.freemius.com/mode/dialog/plugin/7226/plan/12571/\">CLIQUE PARA ATUALIZAR</a>"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:322
+#: elementor/elementor-widgets/portfolio_widget.php:286
+msgid "Grid Style"
+msgstr "Estilo do Grid"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:335
+#: elementor/elementor-widgets/portfolio_widget.php:299
+msgid "Number of columns"
+msgstr "Número de colunas"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:362
+#: elementor/elementor-widgets/portfolio_widget.php:326
+msgid "Number of columns (mobile)"
+msgstr "Número de colunas (mobile)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:378
+#: elementor/elementor-widgets/portfolio_widget.php:342
+#: src/image-gallery-block/edit.js:281
+#: src/portfolio-block/edit.js:135
+msgid "Use item margin?"
+msgstr "Usar margem do item?"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:414
+#: elementor/elementor-widgets/portfolio_widget.php:378
+#: src/image-gallery-block/edit.js:302
+#: src/portfolio-block/edit.js:156
+msgid "Additional Margin (px)"
+msgstr "Margem Adicional (px)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:454
+#: elementor/elementor-widgets/portfolio_widget.php:418
+msgid "Item "
+msgstr "Item "
+
+#: elementor/elementor-widgets/image_gallery_widget.php:478
+#: elementor/elementor-widgets/portfolio_widget.php:442
+msgid "Width (%)"
+msgstr "Largura (%)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:518
+#: elementor/elementor-widgets/portfolio_widget.php:482
+msgid "Height (px)"
+msgstr "Altura (px)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:586
+#: elementor/elementor-widgets/portfolio_widget.php:550
+#: src/image-gallery-block/edit.js:335
+#: src/portfolio-block/edit.js:189
+msgid "Box Height (px)"
+msgstr "Altura da Caixa (px)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:654
+msgid "Hover Settings"
+msgstr "Configurações de Hover"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:663
+#: elementor/elementor-widgets/portfolio_widget.php:627
+msgid "Upgrade your plan to get access to 15+ hover effects! <a href=\"https://checkout.freemius.com/mode/dialog/plugin/7226/plan/12571/\">CLICK TO UPGRADE</a>"
+msgstr "Atualize seu plano para ter acesso a mais de 15 efeitos de hover! <a href=\"https://checkout.freemius.com/mode/dialog/plugin/7226/plan/12571/\">CLIQUE PARA ATUALIZAR</a>"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:669
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:160
+#: elementor/elementor-widgets/portfolio_widget.php:633
+msgid "Hover Style"
+msgstr "Estilo de Hover"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:684
+#: elementor/elementor-widgets/portfolio_widget.php:658
+msgid "Zoom Effect on Hover"
+msgstr "Efeito de Zoom no Hover"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:686
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:139
+#: elementor/elementor-widgets/portfolio_widget.php:129
+#: elementor/elementor-widgets/portfolio_widget.php:221
+#: elementor/elementor-widgets/portfolio_widget.php:660
+msgid "On"
+msgstr "Ligado"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:687
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:140
+#: elementor/elementor-widgets/portfolio_widget.php:130
+#: elementor/elementor-widgets/portfolio_widget.php:222
+#: elementor/elementor-widgets/portfolio_widget.php:661
+msgid "Off"
+msgstr "Desligado"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:719
+#: elementor/elementor-widgets/portfolio_widget.php:690
+msgid "Advanced"
+msgstr "Avançado"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:748
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:190
+#: elementor/elementor-widgets/portfolio_widget.php:719
+msgid "Item"
+msgstr "Item"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:758
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:201
+#: elementor/elementor-widgets/portfolio_widget.php:729
+msgid "Hover: Background Color"
+msgstr "Hover: Cor de Fundo"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:787
+msgid "Item Description:  Typography of Title"
+msgstr "Descrição do Item: Tipografia do Título"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:798
+#: elementor/elementor-widgets/portfolio_widget.php:776
+msgid "Item Title:  Text Shadow"
+msgstr "Título do Item: Sombra do Texto"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:808
+msgid "Item Description:  Typography of Category"
+msgstr "Descrição do Item: Tipografia da Categoria"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:820
+#: elementor/elementor-widgets/portfolio_widget.php:820
+msgid "Item Description:  Text Shadow"
+msgstr "Descrição do Item: Sombra do Texto"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:829
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:213
+#: elementor/elementor-widgets/portfolio_widget.php:829
+msgid "Item Description: Text Transform"
+msgstr "Descrição do Item: Transformação do Texto"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:833
+#: elementor/elementor-widgets/image_gallery_widget.php:976
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:217
+#: elementor/elementor-widgets/portfolio_widget.php:833
+#: elementor/elementor-widgets/portfolio_widget.php:1047
+#: src/image-gallery-block/edit.js:349
+#: src/image-gallery-block/edit.js:421
+#: src/portfolio-block/edit.js:203
+#: src/portfolio-block/edit.js:275
+msgid "None"
+msgstr "Nenhum"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:834
+#: elementor/elementor-widgets/image_gallery_widget.php:977
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:218
+#: elementor/elementor-widgets/portfolio_widget.php:834
+#: elementor/elementor-widgets/portfolio_widget.php:1048
+#: src/image-gallery-block/edit.js:350
+#: src/image-gallery-block/edit.js:422
+#: src/portfolio-block/edit.js:204
+#: src/portfolio-block/edit.js:276
+msgid "UPPERCASE"
+msgstr "MAIÚSCULAS"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:835
+#: elementor/elementor-widgets/image_gallery_widget.php:978
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:219
+#: elementor/elementor-widgets/portfolio_widget.php:835
+#: elementor/elementor-widgets/portfolio_widget.php:1049
+#: src/image-gallery-block/edit.js:351
+#: src/image-gallery-block/edit.js:423
+#: src/portfolio-block/edit.js:205
+#: src/portfolio-block/edit.js:277
+msgid "lowercase"
+msgstr "minúsculas"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:836
+#: elementor/elementor-widgets/image_gallery_widget.php:979
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:220
+#: elementor/elementor-widgets/portfolio_widget.php:836
+#: elementor/elementor-widgets/portfolio_widget.php:1050
+#: src/image-gallery-block/edit.js:352
+#: src/image-gallery-block/edit.js:424
+#: src/portfolio-block/edit.js:206
+#: src/portfolio-block/edit.js:278
+msgid "Capitalize"
+msgstr "Capitalizar"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:848
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:232
+#: elementor/elementor-widgets/portfolio_widget.php:848
+msgid "Item Description: Text Align"
+msgstr "Descrição do Item: Alinhamento do Texto"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:852
+#: elementor/elementor-widgets/image_gallery_widget.php:870
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:236
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:254
+#: elementor/elementor-widgets/portfolio_widget.php:852
+#: elementor/elementor-widgets/portfolio_widget.php:870
+#: src/image-gallery-block/edit.js:362
+#: src/portfolio-block/edit.js:216
+msgid "Center"
+msgstr "Centro"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:853
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:237
+#: elementor/elementor-widgets/portfolio_widget.php:853
+#: src/image-gallery-block/edit.js:363
+#: src/portfolio-block/edit.js:217
+msgid "Left"
+msgstr "Esquerda"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:854
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:238
+#: elementor/elementor-widgets/portfolio_widget.php:854
+#: src/image-gallery-block/edit.js:364
+#: src/portfolio-block/edit.js:218
+msgid "Right"
+msgstr "Direita"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:865
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:249
+#: elementor/elementor-widgets/portfolio_widget.php:865
+msgid "Item Description: Vertical Align"
+msgstr "Descrição do Item: Alinhamento Vertical"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:869
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:253
+#: elementor/elementor-widgets/portfolio_widget.php:869
+msgid "Top"
+msgstr "Superior"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:871
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:255
+#: elementor/elementor-widgets/portfolio_widget.php:871
+msgid "Bottom"
+msgstr "Inferior"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:883
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:267
+#: elementor/elementor-widgets/portfolio_widget.php:892
+msgid "Item: Border Radius"
+msgstr "Item: Raio da Borda"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:911
+#: elementor/elementor-widgets/portfolio_widget.php:971
+msgid "Filter"
+msgstr "Filtro"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:924
+#: elementor/elementor-widgets/portfolio_widget.php:982
+msgid "Filter:  Typography"
+msgstr "Filtro: Tipografia"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:934
+#: elementor/elementor-widgets/portfolio_widget.php:992
+msgid "Filter:  Text Shadow"
+msgstr "Filtro: Sombra do Texto"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:944
+#: elementor/elementor-widgets/portfolio_widget.php:1015
+#: elementor/elementor-widgets/portfolio_widget.php:1132
+#: src/image-gallery-block/edit.js:457
+#: src/image-gallery-block/edit.js:459
+#: src/portfolio-block/edit.js:311
+#: src/portfolio-block/edit.js:313
+msgid "Filter: Background Color"
+msgstr "Filtro: Cor de Fundo"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:958
+#: elementor/elementor-widgets/portfolio_widget.php:1029
+#: src/image-gallery-block/edit.js:467
+#: src/image-gallery-block/edit.js:469
+#: src/portfolio-block/edit.js:321
+#: src/portfolio-block/edit.js:323
+msgid "Filter: Background Color (active item)"
+msgstr "Filtro: Cor de Fundo (item ativo)"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:972
+#: elementor/elementor-widgets/portfolio_widget.php:1043
+#: src/image-gallery-block/edit.js:418
+#: src/portfolio-block/edit.js:272
+msgid "Filter: Text Transform"
+msgstr "Filtro: Transformação do Texto"
+
+#: elementor/elementor-widgets/image_gallery_widget.php:991
+#: elementor/elementor-widgets/portfolio_widget.php:1062
+#: src/image-gallery-block/edit.js:431
+#: src/portfolio-block/edit.js:285
+msgid "Filter: Border Radius"
+msgstr "Filtro: Raio da Borda"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:112
+msgid "Post Type to display (default: elemenfolio)"
+msgstr "Tipo de Post para exibir (padrão: elemenfolio)"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:123
+#: elementor/elementor-widgets/portfolio_widget.php:644
+msgid "Each project links to"
+msgstr "Cada projeto leva para"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:127
+msgid "Featured Image into Lightbox"
+msgstr "Imagem Destacada no Lightbox"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:135
+#: elementor/elementor-widgets/portfolio_widget.php:217
+msgid "Display specific portfolio category"
+msgstr "Exibir categoria específica do portfólio"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:149
+msgid "If yes, select wich portfolio category to show"
+msgstr "Se sim, selecione qual categoria do portfólio mostrar"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:164
+msgid "Simple"
+msgstr "Simples"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:165
+msgid "From Bottom"
+msgstr "De Baixo"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:166
+msgid "From Top"
+msgstr "De Cima"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:167
+msgid "From Right"
+msgstr "Da Direita"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:168
+msgid "From Left"
+msgstr "Da Esquerda"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:169
+msgid "Hover Effect 5"
+msgstr "Efeito de Hover 5"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:170
+msgid "Special 1"
+msgstr "Especial 1"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:171
+msgid "Text from Left"
+msgstr "Texto da Esquerda"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:172
+msgid "Text from right"
+msgstr "Texto da Direita"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:173
+msgid "Text from Top"
+msgstr "Texto de Cima"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:174
+msgid "Text from Bottom"
+msgstr "Texto de Baixo"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:175
+msgid "Zoom Out"
+msgstr "Zoom Out"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:176
+msgid "Card from Left"
+msgstr "Cartão da Esquerda"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:177
+msgid "Card from Right"
+msgstr "Cartão da Direita"
+
+#: elementor/elementor-widgets/portfolio_carousel_widget.php:178
+msgid "Card from Bottom"
+msgstr "Cartão de Baixo"
+
+#: elementor/elementor-widgets/portfolio_widget.php:38
+msgid "Elementor Portfolio (Powerfolio)"
+msgstr "Portfolio Elementor (Powerfolio)"
+
+#: elementor/elementor-widgets/portfolio_widget.php:110
+msgid "Total number of projects to show"
+msgstr "Número total de projetos para mostrar"
+
+#: elementor/elementor-widgets/portfolio_widget.php:111
+msgid "Pagination is now available in Powerfolio PRO version!"
+msgstr "Paginação agora está disponível na versão PRO do Powerfolio!"
+
+#: elementor/elementor-widgets/portfolio_widget.php:125
+msgid "Enable Pagination?"
+msgstr "Ativar Paginação?"
+
+#: elementor/elementor-widgets/portfolio_widget.php:126
+msgid "Enables pagination in the filterable portfolio"
+msgstr "Ativa paginação no portfólio filtrável"
+
+#: elementor/elementor-widgets/portfolio_widget.php:138
+msgid "Pagination: posts per page"
+msgstr "Paginação: posts por página"
+
+#: elementor/elementor-widgets/portfolio_widget.php:139
+msgid "Number of posts per page in the filterable portfolio"
+msgstr "Número de posts por página no portfólio filtrável"
+
+#: elementor/elementor-widgets/portfolio_widget.php:159
+msgid "Post Type to display"
+msgstr "Tipo de Post para exibir"
+
+#: elementor/elementor-widgets/portfolio_widget.php:231
+msgid "Select which portfolio category to show"
+msgstr "Selecione qual categoria do portfólio mostrar"
+
+#: elementor/elementor-widgets/portfolio_widget.php:275
+msgid "You can build your own grids using the Grid Builder option!<br/><br/>You can also order our customized grid service - for this, please request a quote at dotrex@dotrex.co"
+msgstr "Você pode construir seus próprios grids usando a opção Grid Builder!<br/><br/>Você também pode encomendar nosso serviço de grid personalizado - para isso, solicite um orçamento em dotrex@dotrex.co"
+
+#: elementor/elementor-widgets/portfolio_widget.php:277
+msgid "Upgrade your plan to to enable more grid options, or build your own using the Grid Builder tool, our exclusive feature! <a href=\"https://checkout.freemius.com/mode/dialog/plugin/7226/plan/12571/\">CLICK TO UPGRADE</a><br/><br/<br/> You can also order our customized grid service - for this, please request a quote at dotrex@dotrex.co"
+msgstr "Atualize seu plano para habilitar mais opções de grid, ou construa o seu próprio usando a ferramenta Grid Builder, nosso recurso exclusivo! <a href=\"https://checkout.freemius.com/mode/dialog/plugin/7226/plan/12571/\">CLIQUE PARA ATUALIZAR</a><br/><br/<br/> Você também pode encomendar nosso serviço de grid personalizado - para isso, solicite um orçamento em dotrex@dotrex.co"
+
+#: elementor/elementor-widgets/portfolio_widget.php:618
+msgid "Hover Effect Settings"
+msgstr "Configurações de Efeito de Hover"
+
+#: elementor/elementor-widgets/portfolio_widget.php:742
+#: src/image-gallery-block/edit.js:151
+msgid "Item Title"
+msgstr "Título do Item"
+
+#: elementor/elementor-widgets/portfolio_widget.php:751
+msgid "Hide Item Title?"
+msgstr "Ocultar Título do Item?"
+
+#: elementor/elementor-widgets/portfolio_widget.php:753
+#: elementor/elementor-widgets/portfolio_widget.php:797
+msgid "Hide"
+msgstr "Ocultar"
+
+#: elementor/elementor-widgets/portfolio_widget.php:765
+msgid "Item Title:  Typography"
+msgstr "Título do Item: Tipografia"
+
+#: elementor/elementor-widgets/portfolio_widget.php:786
+msgid "Item Description"
+msgstr "Descrição do Item"
+
+#: elementor/elementor-widgets/portfolio_widget.php:795
+msgid "Hide Item Categories?"
+msgstr "Ocultar Categorias do Item?"
+
+#: elementor/elementor-widgets/portfolio_widget.php:809
+msgid "Item Description:  Typography (category)"
+msgstr "Descrição do Item: Tipografia (categoria)"
+
+#: elementor/elementor-widgets/portfolio_widget.php:883
+msgid "Item Border"
+msgstr "Borda do Item"
+
+#: elementor/elementor-widgets/portfolio_widget.php:918
+#: src/image-gallery-block/edit.js:382
+#: src/portfolio-block/edit.js:236
+msgid "Item: Border Size"
+msgstr "Item: Tamanho da Borda"
+
+#: elementor/elementor-widgets/portfolio_widget.php:941
+#: src/image-gallery-block/edit.js:481
+#: src/image-gallery-block/edit.js:483
+#: src/portfolio-block/edit.js:335
+#: src/portfolio-block/edit.js:337
+msgid "Item: Border Color"
+msgstr "Item: Cor da Borda"
+
+#: elementor/elementor-widgets/portfolio_widget.php:1001
+msgid "Filter: Text Color"
+msgstr "Filtro: Cor do Texto"
+
+#: elementor/elementor-widgets/portfolio_widget.php:1103
+msgid "Pagination"
+msgstr "Paginação"
+
+#: elementor/elementor-widgets/portfolio_widget.php:1113
+msgid "Pagination:  Typography"
+msgstr "Paginação: Tipografia"
+
+#: elementor/elementor-widgets/portfolio_widget.php:1123
+msgid "Pagination:  Text Shadow"
+msgstr "Paginação: Sombra do Texto"
+
+#: elementor/elementor-widgets/portfolio_widget.php:1147
+msgid "Pagination: Background Color"
+msgstr "Paginação: Cor de Fundo"
+
+#: elementor/elementor-widgets/portfolio_widget.php:1161
+msgid "Pagination: Background Color (active item)"
+msgstr "Paginação: Cor de Fundo (item ativo)"
+
+#: elementor/elementor-widgets/portfolio_widget.php:1200
+msgid "Pagination: Border Radius"
+msgstr "Paginação: Raio da Borda"
+
+#: elementor/load_elementor.php:40
+msgid "Update Elementor Now"
+msgstr "Atualizar Elementor Agora"
+
+#: includes/panel.php:52
+msgid "Select the main color of your website"
+msgstr "Selecione a cor principal do seu site"
+
+#: includes/panel.php:66
+msgid "Powerfolio"
+msgstr "Powerfolio"
+
+#: includes/panel.php:68
+msgid "Welcome to Powerfolio (Portfolio for Elementor)!"
+msgstr "Bem-vindo ao Powerfolio (Portfólio para Elementor)!"
+
+#: includes/panel.php:70
+msgid "<strong>WARNING:</strong> You are now using the free version of the plugin. Upgrade to PRO to unlock all features. <strong>CLICK HERE TO UPGRADE</strong>"
+msgstr "<strong>AVISO:</strong> Você está usando a versão gratuita do plugin. Atualize para PRO para desbloquear todos os recursos. <strong>CLIQUE AQUI PARA ATUALIZAR</strong>"
+
+#: includes/panel.php:74
+msgid "Version 2.0 - New features!"
+msgstr "Versão 2.0 - Novos recursos!"
+
+#: includes/panel.php:76
+msgid "<strong>- Grid Builder:</strong> Customize the width and height of each item of your gallery grid and create exclusive layouts with a packery layout! (PRO version only)"
+msgstr "<strong>- Grid Builder:</strong> Personalize a largura e altura de cada item do seu grid de galeria e crie layouts exclusivos com layout packery! (apenas versão PRO)"
+
+#: includes/panel.php:77
+msgid "<strong>- Image Gallery Widget:</strong> A new widget to create filterable image galleries direct from the Elementor screen! It have the same features of the portfolio widget, but there is no need to use the portfolio post type for that."
+msgstr "<strong>- Widget de Galeria de Imagens:</strong> Um novo widget para criar galerias de imagens filtráveis diretamente da tela do Elementor! Tem os mesmos recursos do widget de portfólio, mas não há necessidade de usar o tipo de post de portfólio para isso."
+
+#: includes/panel.php:78
+msgid "<strong>- WP Filters:</strong> We added some filters on the plugin code, which makes it easier to customize some parts of the plugin - PHP knowledge required."
+msgstr "<strong>- Filtros WP:</strong> Adicionamos alguns filtros no código do plugin, o que facilita a personalização de algumas partes do plugin - conhecimento em PHP necessário."
+
+#: includes/panel.php:79
+msgid "<strong>- Customization Options:</strong> We added some new customization options on widgets, and we plan to add some more!"
+msgstr "<strong>- Opções de Personalização:</strong> Adicionamos algumas novas opções de personalização nos widgets, e planejamos adicionar mais!"
+
+#: includes/panel.php:80
+msgid "<strong>- Code improvements:</strong> We did some code improvement to speed up the performance."
+msgstr "<strong>- Melhorias no código:</strong> Fizemos algumas melhorias no código para acelerar a performance."
+
+#: includes/panel.php:86
+msgid "Getting Started"
+msgstr "Primeiros Passos"
+
+#: includes/panel.php:87
+msgid "Please check the following video tutorial with the first steps on how to use the plugin."
+msgstr "Por favor, verifique o seguinte tutorial em vídeo com os primeiros passos sobre como usar o plugin."
+
+#: includes/panel.php:90
+msgid "<strong>You can also follow the following steps to start using the plugin:</strong>"
+msgstr "<strong>Você também pode seguir os seguintes passos para começar a usar o plugin:</strong>"
+
+#: includes/panel.php:92
+msgid "Go to Settings > Permalinks and re-save your permalink structure."
+msgstr "Vá para Configurações > Links Permanentes e salve novamente sua estrutura de permalink."
+
+#: includes/panel.php:93
+msgid "Go to Portfolio > Add new Item"
+msgstr "Vá para Portfólio > Adicionar novo Item"
+
+#: includes/panel.php:94
+msgid "Add the first item of your portfolio. Similar to a regular post. Make sure to add a featured image."
+msgstr "Adicione o primeiro item do seu portfólio. Similar a um post regular. Certifique-se de adicionar uma imagem destacada."
+
+#: includes/panel.php:95
+msgid "Repeat the steps to add some items to your portfolio."
+msgstr "Repita os passos para adicionar alguns itens ao seu portfólio."
+
+#: includes/panel.php:96
+msgid "Create a new page using Elementor."
+msgstr "Crie uma nova página usando o Elementor."
+
+#: includes/panel.php:97
+msgid "Drag and drop the portfolio widget to your page."
+msgstr "Arraste e solte o widget de portfólio para sua página."
+
+#: includes/panel.php:98
+msgid "Customize it using the widget options and publish the page."
+msgstr "Personalize-o usando as opções do widget e publique a página."
+
+#: includes/panel.php:99
+msgid "Done! Your new portfolio is ready!"
+msgstr "Pronto! Seu novo portfólio está pronto!"
+
+#: includes/panel.php:110
+msgid "Save Changes"
+msgstr "Salvar Alterações"
+
+#: includes/panel.php:116
+msgid "Display using a shortcode"
+msgstr "Exibir usando um shortcode"
+
+#: includes/panel.php:117
+msgid "You can also display the portfolio grid on a page/post (or on Gutenberg) using the [powerfolio] shortcode."
+msgstr "Você também pode exibir o grid do portfólio em uma página/post (ou no Gutenberg) usando o shortcode [powerfolio]."
+
+#: includes/panel.php:119
+msgid "You can customize it using these options:"
+msgstr "Você pode personalizá-lo usando estas opções:"
+
+#: includes/panel.php:121
+msgid "Set a number of posts to show"
+msgstr "Defina um número de posts para mostrar"
+
+#: includes/panel.php:122
+msgid "Set it to yes if you want to show a specific portfolio category. Options: "
+msgstr "Defina como sim se você quiser mostrar uma categoria específica do portfólio. Opções: "
+
+#: includes/panel.php:123
+msgid "Set the specific taxonomy slug. You need to set type=\"yes\" to use this feature."
+msgstr "Defina o slug da taxonomia específica. Você precisa definir type=\"yes\" para usar este recurso."
+
+#: includes/panel.php:124
+msgid "Show the category filter on the top of the grid. Options: "
+msgstr "Mostrar o filtro de categoria no topo do grid. Opções: "
+
+#: includes/panel.php:125
+msgid "Set the grid style of the portfolio. Options: "
+msgstr "Define o estilo do grid do portfólio. Opções: "
+
+#: includes/panel.php:126
+msgid "Set the link type of the portfolio item. If is set to image, it will open the Featured Image on a lightbox. Options: "
+msgstr "Define o tipo de link do item do portfólio. Se definido como imagem, abrirá a Imagem Destacada em um lightbox. Opções: "
+
+#: includes/panel.php:127
+msgid "Set the columns per row of the portfolio grid.  Options: "
+msgstr "Define as colunas por linha do grid do portfólio. Opções: "
+
+#: includes/panel.php:128
+msgid "Choose if you want a margin between the items or no.  Options: "
+msgstr "Escolha se você quer uma margem entre os itens ou não. Opções: "
+
+#: includes/panel.php:130
+msgid "Example of a complete shortcode:"
+msgstr "Exemplo de um shortcode completo:"
+
+#: includes/panel.php:132
+msgid "Example of a complete shortcode without the set properties:"
+msgstr "Exemplo de um shortcode completo sem as propriedades definidas:"
+
+#: src/image-gallery-block/edit.js:96
+msgid "Custom URL:"
+msgstr "URL Personalizada:"
+
+#: src/image-gallery-block/edit.js:137
+msgid "Add Images"
+msgstr "Adicionar Imagens"
+
+#: src/image-gallery-block/edit.js:138
+msgid "Edit Gallery"
+msgstr "Editar Galeria"
+
+#: src/image-gallery-block/edit.js:148
+msgid "Image"
+msgstr "Imagem"
+
+#: src/image-gallery-block/edit.js:163
+msgid "Item Tag (to use with filter)"
+msgstr "Tag do Item (para usar com filtro)"
+
+#: src/image-gallery-block/edit.js:177
+msgid "Item Description/Short Text"
+msgstr "Descrição do Item/Texto Curto"
+
+#: src/image-gallery-block/edit.js:210
+msgid "Item Custom Link"
+msgstr "Link Personalizado do Item"
+
+#: src/image-gallery-block/edit.js:240
+#: src/portfolio-block/edit.js:94
+msgid "Layout & Customization"
+msgstr "Layout e Personalização"
+
+#: src/image-gallery-block/edit.js:243
+#: src/portfolio-block/edit.js:97
+msgid "Style"
+msgstr "Estilo"
+
+#: src/image-gallery-block/edit.js:254
+#: src/portfolio-block/edit.js:108
+msgid "CSS Effect on Hover"
+msgstr "Efeito CSS no Hover"
+
+#: src/image-gallery-block/edit.js:262
+#: src/portfolio-block/edit.js:116
+msgid "Link To"
+msgstr "Link Para"
+
+#: src/image-gallery-block/edit.js:271
+#: src/portfolio-block/edit.js:125
+msgid "Columns"
+msgstr "Colunas"
+
+#: src/image-gallery-block/edit.js:293
+#: src/portfolio-block/edit.js:147
+msgid "Columns Mobile"
+msgstr "Colunas Mobile"
+
+#: src/image-gallery-block/edit.js:313
+#: src/portfolio-block/edit.js:167
+msgid "Zoom Effect"
+msgstr "Efeito de Zoom"
+
+#: src/image-gallery-block/edit.js:320
+#: src/portfolio-block/edit.js:174
+msgid "Hide Item Title"
+msgstr "Ocultar Título do Item"
+
+#: src/image-gallery-block/edit.js:327
+#: src/portfolio-block/edit.js:181
+msgid "Hide Item Category"
+msgstr "Ocultar Categoria do Item"
+
+#: src/image-gallery-block/edit.js:346
+#: src/portfolio-block/edit.js:200
+msgid "Text Transform"
+msgstr "Transformação do Texto"
+
+#: src/image-gallery-block/edit.js:359
+#: src/portfolio-block/edit.js:213
+msgid "Text Align"
+msgstr "Alinhamento do Texto"
+
+#: src/image-gallery-block/edit.js:397
+#: src/portfolio-block/edit.js:251
+msgid "Category Filter Options"
+msgstr "Opções de Filtro de Categoria"
+
+#: src/image-gallery-block/edit.js:399
+#: src/portfolio-block/edit.js:253
+msgid "Show Filter"
+msgstr "Mostrar Filtro"
+
+#: src/image-gallery-block/edit.js:405
+#: src/portfolio-block/edit.js:259
+msgid "Show All Button"
+msgstr "Mostrar Botão Todos"
+
+#: src/image-gallery-block/edit.js:413
+#: src/portfolio-block/edit.js:267
+msgid "Customize \"All\" button text"
+msgstr "Personalizar texto do botão \"Todos\""
+
+#: src/image-gallery-block/edit.js:445
+#: src/portfolio-block/edit.js:299
+msgid "Colors"
+msgstr "Cores"
+
+#: src/image-gallery-block/edit.js:448
+#: src/image-gallery-block/edit.js:450
+#: src/portfolio-block/edit.js:302
+#: src/portfolio-block/edit.js:304
+msgid "Item: Background Color on Hover"
+msgstr "Item: Cor de Fundo no Hover"
+
+#: src/portfolio-block/edit.js:350
+msgid "Query Posts"
+msgstr "Consultar Posts"
+
+#: src/portfolio-block/edit.js:353
+msgid "Posts Per Page"
+msgstr "Posts por Página"
+
+#: src/portfolio-block/edit.js:364
+msgid "Post Type"
+msgstr "Tipo de Post"
+
+#: src/portfolio-block/edit.js:376
+msgid "Display only custom terms from Portfolio Categories?"
+msgstr "Exibir apenas termos personalizados das Categorias do Portfólio?"
