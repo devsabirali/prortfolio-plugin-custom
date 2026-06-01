@@ -8,52 +8,116 @@ Author: DevsAir
 Author URI: https://devsair.com
 Text Domain: portfolio-elementor
 Domain Path: /languages
-Version: 3.2.5
+Version: 3.2.6
 License: GPL v2 or later
 */
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-//Freemius
-if ( function_exists( 'pe_fs' ) ) {
-    pe_fs()->set_basename( false, __FILE__ );
-} else {
-    // DO NOT REMOVE THIS IF, IT IS ESSENTIAL FOR THE `function_exists` CALL ABOVE TO PROPERLY WORK.
-    if ( !function_exists( 'pe_fs' ) ) {
-        // Create a helper function for easy SDK access.
-        function pe_fs() {
-            global $pe_fs;
-            if ( !isset( $pe_fs ) ) {
-                // Include Composer autoloader
-                require_once dirname( __FILE__ ) . '/vendor/autoload.php';
-                $pe_fs = fs_dynamic_init( array(
-                    'id'             => '7226',
-                    'slug'           => 'portfolio-elementor',
-                    'premium_slug'   => 'portfolio-elementor-pro',
-                    'type'           => 'plugin',
-                    'public_key'     => 'pk_75702ac7c5c10d2bfd4880c1c8039',
-                    'is_premium'     => true,
-                    'premium_suffix' => 'PRO',
-                    'has_addons'     => false,
-                    'has_paid_plans' => false,
-                    'menu'           => array(
-                        'slug'       => 'elementor_portfolio',
-                        'first-path' => 'admin.php?page=elementor_portfolio',
-                    ),
-                    'is_live'        => true,
-                ) );
-            }
+
+if ( ! defined( 'PORTFOLIO_ELEMENTOR_VERSION' ) ) {
+    define( 'PORTFOLIO_ELEMENTOR_VERSION', '3.2.6' );
+}
+
+/**
+ * Set to true only when the full Freemius SDK is bundled under vendor/freemius/.
+ * Disabled by default for DevsAir builds to avoid fatals from incomplete uploads.
+ */
+if ( ! defined( 'PORTFOLIO_ELEMENTOR_ENABLE_FREEMIUS' ) ) {
+    define( 'PORTFOLIO_ELEMENTOR_ENABLE_FREEMIUS', false );
+}
+
+/**
+ * Whether required Freemius SDK files exist (guards against partial vendor uploads).
+ *
+ * @return bool
+ */
+function portfolio_elementor_freemius_sdk_is_complete() {
+    $sdk_root = dirname( __FILE__ ) . '/vendor/freemius/wordpress-sdk';
+
+    $required = array(
+        $sdk_root . '/start.php',
+        $sdk_root . '/includes/class-freemius.php',
+        $sdk_root . '/templates/connect.php',
+    );
+
+    foreach ( $required as $path ) {
+        if ( ! is_readable( $path ) ) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Load the Freemius SDK when enabled and complete.
+ *
+ * @return bool
+ */
+function portfolio_elementor_load_freemius_sdk() {
+    if ( ! PORTFOLIO_ELEMENTOR_ENABLE_FREEMIUS || ! portfolio_elementor_freemius_sdk_is_complete() ) {
+        return false;
+    }
+
+    if ( function_exists( 'fs_dynamic_init' ) ) {
+        return true;
+    }
+
+    require_once dirname( __FILE__ ) . '/vendor/freemius/wordpress-sdk/start.php';
+
+    return function_exists( 'fs_dynamic_init' );
+}
+
+// Freemius (optional — off by default for this build).
+if ( ! function_exists( 'pe_fs' ) ) {
+    /**
+     * @return Freemius|null
+     */
+    function pe_fs() {
+        global $pe_fs;
+
+        if ( isset( $pe_fs ) ) {
             return $pe_fs;
         }
 
-        // Init Freemius.
-        pe_fs();
-        // Signal that SDK was initiated.
-        do_action( 'pe_fs_loaded' );
+        $pe_fs = null;
+
+        if ( ! portfolio_elementor_load_freemius_sdk() ) {
+            return null;
+        }
+
+        $pe_fs = fs_dynamic_init(
+            array(
+                'id'             => '7226',
+                'slug'           => 'portfolio-elementor',
+                'premium_slug'   => 'portfolio-elementor-pro',
+                'type'           => 'plugin',
+                'public_key'     => 'pk_75702ac7c5c10d2bfd4880c1c8039',
+                'is_premium'     => true,
+                'premium_suffix' => 'PRO',
+                'has_addons'     => false,
+                'has_paid_plans' => false,
+                'menu'           => array(
+                    'slug'       => 'elementor_portfolio',
+                    'first-path' => 'admin.php?page=elementor_portfolio',
+                ),
+                'is_live'        => true,
+            )
+        );
+
+        return $pe_fs;
     }
-    // ... Your plugin's main file logic ...
-    if ( !class_exists( 'Powerfolio_Portfolio' ) ) {
+}
+
+$portfolio_elementor_fs = pe_fs();
+if ( is_object( $portfolio_elementor_fs ) && method_exists( $portfolio_elementor_fs, 'set_basename' ) ) {
+    $portfolio_elementor_fs->set_basename( false, __FILE__ );
+    do_action( 'pe_fs_loaded' );
+}
+
+if ( ! class_exists( 'Powerfolio_Portfolio' ) ) {
         /*
          * Start Powerfolio
          */
@@ -105,10 +169,12 @@ if ( function_exists( 'pe_fs' ) ) {
         /*
          * Review
          */
-        update_option( "elpt-installDate", gmdate( 'Y-m-d H:i:s' ) );
         if ( is_admin() ) {
             require_once 'classes/Powerfolio_Feedback_Notice.php';
         }
+
+        // Bootstrap portfolio CPT, shortcodes, and hooks once.
+        new Powerfolio_Portfolio();
     }
     //Elementor Category
     if ( !function_exists( 'elpug_powerups_cat' ) ) {
@@ -126,8 +192,8 @@ if ( function_exists( 'pe_fs' ) ) {
     if ( !class_exists( 'PWGD_Register_PwrGrids_Elementor' ) ) {
         //require 'modules/post-grid-module/post-grid-module.php';
     }
-    register_activation_hook( __FILE__, 'elpt_activate' );
-}
+register_activation_hook( __FILE__, 'elpt_activate' );
+
 // Enqueue general scripts
 /*if (! function_exists('powerfolio_enqueue_scripts')) {   
     function powerfolio_enqueue_scripts() {

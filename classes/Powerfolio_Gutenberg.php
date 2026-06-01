@@ -205,7 +205,9 @@ class Powerfolio_Gutenberg {
         register_rest_route('powerfolio/v1', '/get-post-types', array(
             'methods' => 'GET',
             'callback' => array($this, 'get_post_types_callback'),
-            'permission_callback' => '__return_true', // Add this line
+            'permission_callback' => function () {
+                return current_user_can( 'edit_posts' );
+            },
         ));
 
         register_rest_route("powerfolio/v1", "/get-portfolio-taxonomy-terms", array(
@@ -237,19 +239,25 @@ class Powerfolio_Gutenberg {
     
     public function get_portfolio_taxonomy_terms() {
         $terms = Powerfolio_Common_Settings::get_portfolio_taxonomy_terms();
-    
-        $response = [];
-    
-        // Convert terms to an array with 'name' and 'label' keys
-        foreach ($terms as $term_slug) {
-            $term = get_term_by('slug', $term_slug, 'elemenfoliocategory');
-            $response[] = [
-                'name' => $term->slug,
-                'label' => $term->slug,
-            ];
+
+        if ( is_wp_error( $terms ) || empty( $terms ) ) {
+            return new WP_REST_Response( array(), 200 );
         }
-    
-        return new WP_REST_Response($response, 200);
+
+        $response = array();
+
+        foreach ( $terms as $term_id => $term_name ) {
+            $term = get_term( (int) $term_id, 'elemenfoliocategory' );
+            if ( ! $term || is_wp_error( $term ) ) {
+                continue;
+            }
+            $response[] = array(
+                'name'  => $term->slug,
+                'label' => $term->name,
+            );
+        }
+
+        return new WP_REST_Response( $response, 200 );
     }
 
 }

@@ -5,7 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Powerfolio_Portfolio {
-	
+
+	/** @var int Post ID queued for featured-image resolution after save. */
+	private static $pending_thumbnail_post_id = 0;
+
 	public function __construct() {
 
 		add_action( 'init', array( $this, 'register_portfolio_post_type') , 20 );
@@ -87,7 +90,23 @@ class Powerfolio_Portfolio {
 			return;
 		}
 
-		if ( get_post_thumbnail_id( $post_id ) ) {
+		if ( ! $post instanceof WP_Post || 'elemenfolio' !== $post->post_type ) {
+			return;
+		}
+
+		// Run after REST/block editor has finished so the JSON response stays valid.
+		self::$pending_thumbnail_post_id = (int) $post_id;
+		add_action( 'shutdown', array( __CLASS__, 'process_pending_thumbnail' ), 5 );
+	}
+
+	/**
+	 * Set featured image from Elementor/content fallback after the request completes.
+	 */
+	public static function process_pending_thumbnail() {
+		$post_id = self::$pending_thumbnail_post_id;
+		self::$pending_thumbnail_post_id = 0;
+
+		if ( $post_id < 1 || get_post_thumbnail_id( $post_id ) ) {
 			return;
 		}
 
@@ -177,9 +196,14 @@ class Powerfolio_Portfolio {
 			'exclude_from_search' => false,
 			'has_archive' => $portfolio_cpt_has_archive,
 	        'query_var' => true,
-			'rewrite' => array( 'slug' => $portfolio_cpt_slug_rewrite ),
+			'capability_type' => 'post',
+			'map_meta_cap'    => true,
+			'rewrite' => array(
+				'slug'       => $portfolio_cpt_slug_rewrite,
+				'with_front' => false,
+			),
 			'show_in_rest' => true,
-            'supports' => array('title','editor', 'thumbnail')
+            'supports' => array( 'title', 'editor', 'thumbnail', 'revisions', 'custom-fields' ),
 	        // This is where we add taxonomies to our CPT
         	//'taxonomies'          => array( 'category' ),
 		);	
@@ -1293,8 +1317,3 @@ class Powerfolio_Portfolio {
       add_shortcode("elemenfolio", array( __CLASS__, 'get_portfolio_shortcode_output') );
 	}	
 }
-
-// Start Powerfolio_Portfolio
-add_action( 'init', function(){
-	new Powerfolio_Portfolio(); 
-});
