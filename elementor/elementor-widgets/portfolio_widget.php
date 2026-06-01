@@ -538,11 +538,35 @@ class ELPT_Portfolio_Widget extends Widget_Base {
             'label' => __( 'Advanced', 'portfolio-elementor' ),
             'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
         ] );
-        $this->add_control( 'upgrade_note4', [
-            'label'           => '',
-            'type'            => \Elementor\Controls_Manager::RAW_HTML,
-            'raw'             => \Powerfolio_Common_Settings::get_upgrade_message( 'elementor' ),
-            'content_classes' => 'your-class',
+        $this->add_control( 'columns_mobile', [
+            'label'   => __( 'Columns on mobile', 'portfolio-elementor' ),
+            'type'    => Controls_Manager::SELECT,
+            'default' => 'custom',
+            'options' => \Powerfolio_Common_Settings::get_column_mobile_options(),
+        ] );
+        $this->add_control( 'zoom_effect', [
+            'label'        => __( 'Zoom effect on hover', 'portfolio-elementor' ),
+            'type'         => Controls_Manager::SWITCHER,
+            'label_on'     => __( 'Yes', 'portfolio-elementor' ),
+            'label_off'    => __( 'No', 'portfolio-elementor' ),
+            'return_value' => 'zoom_effect',
+            'default'      => '',
+        ] );
+        $this->add_control( 'item_hide_title', [
+            'label'        => __( 'Hide item title', 'portfolio-elementor' ),
+            'type'         => Controls_Manager::SWITCHER,
+            'label_on'     => __( 'Yes', 'portfolio-elementor' ),
+            'label_off'    => __( 'No', 'portfolio-elementor' ),
+            'return_value' => 'yes',
+            'default'      => '',
+        ] );
+        $this->add_control( 'item_hide_category', [
+            'label'        => __( 'Hide item category', 'portfolio-elementor' ),
+            'type'         => Controls_Manager::SWITCHER,
+            'label_on'     => __( 'Yes', 'portfolio-elementor' ),
+            'label_off'    => __( 'No', 'portfolio-elementor' ),
+            'return_value' => 'yes',
+            'default'      => '',
         ] );
         $this->end_controls_section();
         //=========== END - ADVANCED SECTION	==============
@@ -587,33 +611,184 @@ class ELPT_Portfolio_Widget extends Widget_Base {
                 '{{WRAPPER}} .elpt-portfolio-content .portfolio-item' => 'border-color: {{VALUE}};',
             ],
         ] );
-        $this->add_control( 'upgrade_note5', [
-            'label'           => '',
-            'type'            => \Elementor\Controls_Manager::RAW_HTML,
-            'raw'             => \Powerfolio_Common_Settings::get_upgrade_message( 'elementor' ),
-            'content_classes' => 'your-class',
+        $this->add_control( 'item_border_radius', [
+            'label'      => __( 'Item: Border Radius', 'portfolio-elementor' ),
+            'type'       => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%'],
+            'selectors'  => [
+                '{{WRAPPER}} .elpt-portfolio-content .portfolio-item'     => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+                '{{WRAPPER}} .elpt-portfolio-content .portfolio-item img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+        ] );
+        $this->add_control( 'text_transform', [
+            'label'     => __( 'Item: Text Transform', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::SELECT,
+            'default'   => '',
+            'options'   => [
+                ''           => __( 'Default', 'portfolio-elementor' ),
+                'uppercase'  => __( 'Uppercase', 'portfolio-elementor' ),
+                'lowercase'  => __( 'Lowercase', 'portfolio-elementor' ),
+                'capitalize' => __( 'Capitalize', 'portfolio-elementor' ),
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .portfolio-item-infos-wrapper' => 'text-transform: {{VALUE}};',
+            ],
+        ] );
+        $this->add_control( 'text_align', [
+            'label'     => __( 'Item: Text Align', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::CHOOSE,
+            'options'   => [
+                'left'   => [
+                    'title' => __( 'Left', 'portfolio-elementor' ),
+                    'icon'  => 'eicon-text-align-left',
+                ],
+                'center' => [
+                    'title' => __( 'Center', 'portfolio-elementor' ),
+                    'icon'  => 'eicon-text-align-center',
+                ],
+                'right'  => [
+                    'title' => __( 'Right', 'portfolio-elementor' ),
+                    'icon'  => 'eicon-text-align-right',
+                ],
+            ],
+            'default'   => 'center',
+            'selectors' => [
+                '{{WRAPPER}} .elpt-portfolio-content .portfolio-item-infos-wrapper' => 'text-align: {{VALUE}};',
+            ],
         ] );
         $this->end_controls_section();
         $this->start_controls_section( 'section_style', [
             'label' => __( 'Filter', 'portfolio-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
-        $this->add_control( 'Upgrade_note6', [
-            'label'           => '',
-            'type'            => \Elementor\Controls_Manager::RAW_HTML,
-            'raw'             => \Powerfolio_Common_Settings::get_upgrade_message( 'elementor' ),
-            'content_classes' => 'your-class',
+        $this->add_group_control( \Elementor\Group_Control_Typography::get_type(), [
+            'name'      => 'filter_typography',
+            'label'     => __( 'Typography', 'portfolio-elementor' ),
+            'selector'  => '{{WRAPPER}} .elpt-portfolio-filter .portfolio-filter-item',
+            'condition' => [
+                'showfilter' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'filter_color', [
+            'label'     => __( 'Text Color', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .elpt-portfolio-filter .portfolio-filter-item' => 'color: {{VALUE}};',
+            ],
+            'condition' => [
+                'showfilter' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'filter_bgcolor', [
+            'label'     => __( 'Background Color', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .elpt-portfolio-filter .portfolio-filter-item' => 'background-color: {{VALUE}};',
+            ],
+            'condition' => [
+                'showfilter' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'filter_bgcolor_active', [
+            'label'     => __( 'Active Background Color', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .elpt-portfolio-filter .portfolio-filter-item.item-active' => 'background-color: {{VALUE}};',
+            ],
+            'condition' => [
+                'showfilter' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'filter_border_radius', [
+            'label'      => __( 'Border Radius', 'portfolio-elementor' ),
+            'type'       => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%'],
+            'selectors'  => [
+                '{{WRAPPER}} .elpt-portfolio-filter .portfolio-filter-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'condition'  => [
+                'showfilter' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'filter_padding', [
+            'label'      => __( 'Padding', 'portfolio-elementor' ),
+            'type'       => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', 'em'],
+            'selectors'  => [
+                '{{WRAPPER}} .elpt-portfolio-filter .portfolio-filter-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'condition'  => [
+                'showfilter' => 'yes',
+            ],
         ] );
         $this->end_controls_section();
         $this->start_controls_section( 'section_pagination_styles', [
             'label' => __( 'Pagination', 'portfolio-elementor' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
-        $this->add_control( 'Upgrade_note7', [
-            'label'           => '',
-            'type'            => \Elementor\Controls_Manager::RAW_HTML,
-            'raw'             => \Powerfolio_Common_Settings::get_upgrade_message( 'elementor' ),
-            'content_classes' => 'your-class',
+        $this->add_group_control( \Elementor\Group_Control_Typography::get_type(), [
+            'name'      => 'pagination_typography',
+            'label'     => __( 'Typography', 'portfolio-elementor' ),
+            'selector'  => '{{WRAPPER}} .isotope-pager .pager, {{WRAPPER}} .elpt-load-more-btn',
+            'condition' => [
+                'pagination_enable' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'pagination_color', [
+            'label'     => __( 'Text Color', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .isotope-pager .pager'     => 'color: {{VALUE}};',
+                '{{WRAPPER}} .elpt-load-more-btn'       => 'color: {{VALUE}};',
+            ],
+            'condition' => [
+                'pagination_enable' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'pagination_bgcolor', [
+            'label'     => __( 'Background Color', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .isotope-pager .pager' => 'background-color: {{VALUE}};',
+                '{{WRAPPER}} .elpt-load-more-btn'   => 'background-color: {{VALUE}};',
+            ],
+            'condition' => [
+                'pagination_enable' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'pagination_active_bgcolor', [
+            'label'     => __( 'Active Page Background', 'portfolio-elementor' ),
+            'type'      => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .isotope-pager .pager.active' => 'background-color: {{VALUE}};',
+            ],
+            'condition' => [
+                'pagination_enable' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'pagination_border_radius', [
+            'label'      => __( 'Border Radius', 'portfolio-elementor' ),
+            'type'       => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%'],
+            'selectors'  => [
+                '{{WRAPPER}} .isotope-pager .pager'   => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .elpt-load-more-btn'     => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'condition'  => [
+                'pagination_enable' => 'yes',
+            ],
+        ] );
+        $this->add_control( 'pagination_padding', [
+            'label'      => __( 'Padding', 'portfolio-elementor' ),
+            'type'       => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', 'em'],
+            'selectors'  => [
+                '{{WRAPPER}} .isotope-pager .pager' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .elpt-load-more-btn'   => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'condition'  => [
+                'pagination_enable' => 'yes',
+            ],
         ] );
         $this->end_controls_section();
     }
