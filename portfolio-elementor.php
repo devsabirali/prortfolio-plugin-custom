@@ -1,16 +1,15 @@
 <?php
 
 /*
-Plugin Name: Portfolio Elementor
-Plugin URI: https://powerfoliowp.com
-Description: Create portfolios and image galleries in seconds using Elementor, Gutenberg blocks, or any page builder!
-Author: PWR Plugins
-Author URI: https://dotrex.co
+Plugin Name: DevsAir Portfolio Elementor
+Plugin URI: https://devsair.com
+Description: Free portfolio and image galleries for Elementor and Gutenberg — customized by DevsAir.
+Author: DevsAir
+Author URI: https://devsair.com
 Text Domain: portfolio-elementor
 Domain Path: /languages
 Version: 3.2.5
 License: GPL v2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) {
@@ -115,7 +114,7 @@ if ( function_exists( 'pe_fs' ) ) {
         //Create Elementor Category
         function elpug_powerups_cat() {
             \Elementor\Plugin::$instance->elements_manager->add_category( 'elpug-elements', [
-                'title' => __( 'Portfolio Elementor', 'portfolio-elementor' ),
+                'title' => __( 'DevsAir Portfolio', 'portfolio-elementor' ),
                 'icon'  => 'fa fa-plug',
             ], 2 );
         }

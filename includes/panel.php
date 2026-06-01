@@ -22,8 +22,8 @@ class ELPT_Admin_Page {
 		wp_enqueue_script( 'powerfolio-js', plugin_dir_url( __FILE__ ) .  '../assets/js/powerfolio-admin.js', array( 'wp-color-picker' ), '20151218', true );
 
 		//Create Admin Page
-		$page_title = 'Portfolio Elementor';
-		$menu_title = 'Portfolio Elementor';
+		$page_title = 'DevsAir Portfolio';
+		$menu_title = 'DevsAir Portfolio';
 		$capability = 'edit_posts';
 		$menu_slug = 'elementor_portfolio';
 		$function = array( __CLASS__, 'elpt_options_page');
@@ -67,9 +67,19 @@ class ELPT_Admin_Page {
 	?>
 		<div class="wrap">
 			<!-- Intro -->
-			<h1><?php esc_html_e( 'Portfolio Elementor', 'portfolio-elementor' ) ?></h1>
+			<h1><?php esc_html_e( 'DevsAir Portfolio Elementor', 'portfolio-elementor' ) ?></h1>
 			
-			<h2><?php esc_html_e( 'Welcome to Portfolio Elementor!', 'portfolio-elementor' ) ?></h2>
+			<h2><?php esc_html_e( 'Welcome to DevsAir Portfolio Elementor', 'portfolio-elementor' ); ?></h2>
+			<p><?php
+				echo wp_kses_post(
+					sprintf(
+						/* translators: 1: opening anchor, 2: closing anchor */
+						__( 'Free customized portfolio plugin by DevsAir. Visit us at %1$sdevsair.com%2$s.', 'portfolio-elementor' ),
+						'<a href="https://devsair.com" target="_blank" rel="noopener noreferrer">',
+						'</a>'
+					)
+				);
+			?></p>
 			
 			<div style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #fff;">
 				<h2><?php esc_html_e( 'Version 2.0 - New features!', 'portfolio-elementor' ) ?></h2></p>
